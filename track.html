@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Order | KRAAL Streetwear</title>
+  <meta name="description" content="Check live production and courier dispatch status for your KRAAL Streetwear POD order.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body class="has-bottom-nav">
+
+  <!-- Announcement Bar (Neon Lime) -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <div class="ticker-item">
+        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span class="badge-code">DROP LIVE</span>
+        <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
+        <span>✦</span>
+        <span>DIRECT DISPATCH FULFILLMENT</span>
+        <span>✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header-sticky-wrapper">
+    <header class="main-header container">
+      <div class="header-left">
+        <a href="index.html" class="brand-logo" aria-label="KRAAL Home">
+          KRAAL<span class="dot"></span>
+        </a>
+
+        <nav class="header-nav">
+          <a href="shop.html?collection=drop-01" class="nav-link">
+            DROP 01 <span class="nav-badge-pill">NEW</span>
+          </a>
+          <a href="shop.html" class="nav-link">SHOP ALL</a>
+          <a href="shop.html?cat=oversized-tees" class="nav-link">TEES</a>
+          <a href="shop.html?cat=hoodies" class="nav-link">HOODIES</a>
+          <a href="shop.html?cat=cargos" class="nav-link">BOTTOMS</a>
+          <a href="shop.html?cat=accessories" class="nav-link">ACCESSORIES</a>
+        </nav>
+      </div>
+
+      <div class="header-actions">
+        <a href="wishlist.html" class="header-action-btn" title="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </a>
+        <a href="cart.html" class="header-action-btn open-cart-trigger" title="Shopping Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <main class="container" style="padding: 48px 24px 80px; max-width: 860px;">
+    <!-- PAGE 13 — TRACK ORDER HERO -->
+    <div style="text-align: center; margin-bottom: 32px;">
+      <span class="card-badge badge-neon" style="margin-bottom: 8px;">REAL-TIME QIKINK SYNC</span>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-top: 6px;">TRACK ORDER</h1>
+      <p style="color: var(--color-charcoal-muted); font-size: 0.95rem;">Enter your Order ID (e.g. KR_942828) to inspect production and courier live status.</p>
+    </div>
+
+    <!-- Search Box -->
+    <form onsubmit="handleTrackSubmit(event)" style="display: flex; gap: 8px; max-width: 520px; margin: 0 auto 40px;">
+      <input type="text" id="trackOrderInput" placeholder="ENTER ORDER NUMBER" required style="flex:1; padding:12px 18px; border:2px solid var(--color-black); border-radius:var(--radius-pill); font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:0.95rem;">
+      <button type="submit" class="btn btn-primary" id="trackSearchBtn">TRACK ↗</button>
+    </form>
+
+    <!-- Loading -->
+    <div id="trackLoading" style="display:none; text-align:center; padding: 40px;">
+      <div style="display:inline-block; width:36px; height:36px; border:3px solid var(--color-border); border-top-color:var(--color-black); border-radius:50%; animation:spin 0.8s linear infinite;"></div>
+    </div>
+
+    <!-- PAGE 14 — ORDER DETAILS CARD -->
+    <div id="trackResultBox" style="display:none;">
+      <div style="background:var(--color-white); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:32px; box-shadow:var(--shadow-md);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--color-border); padding-bottom:16px; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span class="card-badge badge-neon" id="orderStatusBadge">IN PRODUCTION</span>
+            <h2 style="font-size: 1.6rem; margin-top: 8px;" id="orderTitleDisplay">ORDER #KR_000000</h2>
+            <div style="font-size: 0.85rem; color: var(--color-charcoal-muted);" id="orderPlacedDate">Placed on September 24, 2026</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.8rem; color: var(--color-charcoal-muted); text-transform: uppercase;">Total Value</div>
+            <strong style="font-family: var(--font-display); font-size: 1.35rem;" id="orderTotalDisplay">₹0</strong>
+          </div>
+        </div>
+
+        <!-- PAGE 13 — Visual Steps Timeline -->
+        <div class="timeline-steps" id="timelineSteps">
+          <div class="timeline-step" id="step1">
+            <div class="step-node">1</div>
+            <span class="step-label">Ordered</span>
+          </div>
+          <div class="timeline-step" id="step2">
+            <div class="step-node">2</div>
+            <span class="step-label">Confirmed</span>
+          </div>
+          <div class="timeline-step" id="step3">
+            <div class="step-node">3</div>
+            <span class="step-label">In POD</span>
+          </div>
+          <div class="timeline-step" id="step4">
+            <div class="step-node">4</div>
+            <span class="step-label">Shipped</span>
+          </div>
+          <div class="timeline-step" id="step5">
+            <div class="step-node">5</div>
+            <span class="step-label">Delivered</span>
+          </div>
+        </div>
+
+        <!-- Courier & AWB Box -->
+        <div id="courierDetailsBox" style="background:var(--color-surface); border-radius:var(--radius-sm); padding:16px 20px; margin: 28px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-size: 0.75rem; font-weight:800; text-transform:uppercase; color:var(--color-charcoal-muted); font-family:var(--font-display);">COURIER PARTNER & WAYBILL</div>
+            <strong style="font-family:var(--font-display); font-size:1.05rem;" id="courierNameDisplay">Delhivery Logistics</strong>
+            <div style="font-size:0.85rem; color:var(--color-charcoal-light);">AWB: <span id="awbNumberDisplay">Pending AWB assignment</span></div>
+          </div>
+          <a href="#" target="_blank" id="liveTrackingLink" class="btn btn-dark btn-sm" style="display:none;">LIVE COURIER TRACK ↗</a>
+        </div>
+
+        <!-- Line Items Summary (Page 14) -->
+        <h4 style="font-size: 0.95rem; margin-bottom: 14px;">ORDER ITEMS</h4>
+        <div id="orderItemsSummaryList" style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--color-border); padding-top: 14px;">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Shipping Address Details -->
+        <div style="border-top:1px solid var(--color-border); margin-top:20px; padding-top:16px; font-size:0.88rem; color:var(--color-charcoal-light);">
+          <strong>DELIVERING TO:</strong>
+          <div id="shippingAddressDisplay" style="margin-top:4px;">Recipient address</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 KRAAL STREETWEAR. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabaseClient.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const orderParam = params.get('order');
+      if (orderParam) {
+        document.getElementById('trackOrderInput').value = orderParam;
+        fetchOrderDetails(orderParam);
+      }
+    });
+
+    function handleTrackSubmit(e) {
+      e.preventDefault();
+      const val = document.getElementById('trackOrderInput').value.trim();
+      if (val) {
+        fetchOrderDetails(val);
+      }
+    }
+
+    async function fetchOrderDetails(orderNumber) {
+      const loader = document.getElementById('trackLoading');
+      const box = document.getElementById('trackResultBox');
+      loader.style.display = 'block';
+      box.style.display = 'none';
+
+      try {
+        let order = null;
+        if (window.kraalSupabase && window.kraalSupabase.getOrderByNumber) {
+          order = await window.kraalSupabase.getOrderByNumber(orderNumber);
+        }
+
+        loader.style.display = 'none';
+
+        if (!order) {
+          alert(`Order #${orderNumber} was not found in our database. Please check your order number.`);
+          return;
+        }
+
+        renderTrackingDetails(order);
+      } catch (err) {
+        loader.style.display = 'none';
+        console.error(err);
+        alert('Could not retrieve tracking details: ' + err.message);
+      }
+    }
+
+    function renderTrackingDetails(o) {
+      const box = document.getElementById('trackResultBox');
+      box.style.display = 'block';
+
+      document.getElementById('orderTitleDisplay').textContent = `ORDER #${o.order_number}`;
+      document.getElementById('orderStatusBadge').textContent = (o.status || 'placed').toUpperCase();
+      document.getElementById('orderPlacedDate').textContent = `Placed on ${new Date(o.created_at).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+      document.getElementById('orderTotalDisplay').textContent = formatPrice(o.grand_total);
+
+      document.getElementById('courierNameDisplay').textContent = o.courier_name || 'Qikink Direct Dispatch Logistics';
+      document.getElementById('awbNumberDisplay').textContent = o.tracking_number || (o.qikink_order_id ? `Assigned to POD (#${o.qikink_order_id})` : 'Awaiting fulfillment dispatch');
+
+      const trackLink = document.getElementById('liveTrackingLink');
+      if (o.tracking_url) {
+        trackLink.href = o.tracking_url;
+        trackLink.style.display = 'inline-flex';
+      } else {
+        trackLink.style.display = 'none';
+      }
+
+      document.getElementById('shippingAddressDisplay').textContent = `${o.customer_name} — ${o.shipping_address}, ${o.city} ${o.pincode} (Phone: ${o.customer_phone})`;
+
+      // Render Items
+      const itemsList = document.getElementById('orderItemsSummaryList');
+      const items = o.order_items || [];
+      if (items.length > 0) {
+        itemsList.innerHTML = items.map(it => `
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.88rem;">
+            <div>
+              <strong>${it.product_name}</strong>
+              <div style="font-size:0.75rem; color:var(--color-charcoal-muted);">Size: ${it.size} &bull; Qty: ${it.quantity}</div>
+            </div>
+            <strong>${formatPrice(it.subtotal || it.unit_price * it.quantity)}</strong>
+          </div>
+        `).join('');
+      } else {
+        itemsList.innerHTML = `<div style="font-size:0.85rem; color:var(--color-charcoal-muted);">Drop 01 Streetwear Items</div>`;
+      }
+
+      // Update Step Timeline
+      const status = (o.status || '').toLowerCase();
+      const steps = ['step1', 'step2', 'step3', 'step4', 'step5'];
+      steps.forEach(s => document.getElementById(s).className = 'timeline-step');
+
+      document.getElementById('step1').classList.add('completed');
+
+      if (['placed', 'pushed_to_qikink', 'in_production', 'shipped', 'delivered'].includes(status)) {
+        document.getElementById('step2').classList.add('completed');
+      }
+
+      if (['pushed_to_qikink', 'in_production', 'shipped', 'delivered'].includes(status)) {
+        document.getElementById('step3').classList.add(status === 'in_production' || status === 'pushed_to_qikink' ? 'active' : 'completed');
+      }
+
+      if (['shipped', 'delivered'].includes(status)) {
+        document.getElementById('step4').classList.add(status === 'shipped' ? 'active' : 'completed');
+      }
+
+      if (status === 'delivered') {
+        document.getElementById('step5').classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

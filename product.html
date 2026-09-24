@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drop Details | KRAAL Streetwear</title>
+  <meta name="description" content="View product specifications, streetwear fit details, and order heavyweight streetwear from KRAAL.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body class="has-bottom-nav">
+
+  <!-- Top Announcement Bar (Neon Lime) -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <div class="ticker-item">
+        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span class="badge-code">DROP LIVE</span>
+        <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
+        <span>✦</span>
+        <span>DIRECT DISPATCH FULFILLMENT</span>
+        <span>✦</span>
+      </div>
+      <div class="ticker-item">
+        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span class="badge-code">DROP LIVE</span>
+        <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
+        <span>✦</span>
+        <span>DIRECT DISPATCH FULFILLMENT</span>
+        <span>✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header-sticky-wrapper">
+    <header class="main-header container">
+      <div class="header-left">
+        <a href="index.html" class="brand-logo" aria-label="KRAAL Home">
+          KRAAL<span class="dot"></span>
+        </a>
+
+        <nav class="header-nav">
+          <a href="shop.html?collection=drop-01" class="nav-link">
+            DROP 01 <span class="nav-badge-pill">NEW</span>
+          </a>
+          <a href="shop.html" class="nav-link">SHOP ALL</a>
+          <a href="shop.html?cat=oversized-tees" class="nav-link">TEES</a>
+          <a href="shop.html?cat=hoodies" class="nav-link">HOODIES</a>
+          <a href="shop.html?cat=cargos" class="nav-link">BOTTOMS</a>
+          <a href="shop.html?cat=accessories" class="nav-link">ACCESSORIES</a>
+        </nav>
+      </div>
+
+      <!-- Live Search Bar -->
+      <div class="header-search">
+        <form id="globalSearchForm">
+          <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="globalSearchInput" placeholder="Search for oversized tees, cargos, hoodies..." autocomplete="off">
+          </div>
+        </form>
+        <div id="searchDropdown" class="search-dropdown"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <a href="track.html" class="header-action-btn" title="Track Order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </a>
+
+        <a href="wishlist.html" class="header-action-btn" title="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="action-badge wishlist-badge-count" style="display:none;">0</span>
+        </a>
+
+        <a href="cart.html" class="header-action-btn open-cart-trigger" title="Shopping Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="action-badge cart-badge-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <!-- PAGE 07 — Breadcrumbs -->
+    <div class="container" style="padding-top: 20px;">
+      <div style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--color-charcoal-muted); text-transform: uppercase; letter-spacing: 0.05em; display: flex; gap: 8px; align-items: center;">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="shop.html" id="pdpBreadcrumbCat">Drops</a>
+        <span>/</span>
+        <span style="color: var(--color-black);" id="pdpBreadcrumbTitle">Product Detail</span>
+      </div>
+    </div>
+
+    <!-- PAGE 07 — Product Detail Grid -->
+    <section class="pdp-section">
+      <div class="container pdp-grid">
+        <!-- Left: Image Gallery -->
+        <div class="pdp-gallery-wrap">
+          <div class="pdp-gallery-main">
+            <img id="pdpMainImage" src="" alt="Product Showcase">
+          </div>
+          <div class="pdp-thumbnails" id="pdpThumbnails">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Info Panel -->
+        <div class="pdp-info-panel">
+          <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
+            <span class="card-badge badge-neon" id="pdpBadge">DROP 01</span>
+            <span class="card-badge badge-dark" id="pdpGsmBadge">HEAVYWEIGHT</span>
+          </div>
+
+          <h1 class="pdp-title" id="pdpTitle">UNISEX OVERSIZED STANDARD T-SHIRT</h1>
+          
+          <div class="pdp-price-row">
+            <span class="pdp-current-price" id="pdpPrice">₹699</span>
+            <span class="pdp-mrp" id="pdpMrp">₹1,000</span>
+            <span class="card-badge badge-neon" id="pdpDiscount">30% OFF</span>
+          </div>
+
+          <p style="font-size: 0.95rem; color: var(--color-charcoal-light); margin-bottom: 24px; line-height: 1.6;" id="pdpDescription">
+            Drop 01 authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.
+          </p>
+
+          <!-- Color Selector -->
+          <div class="pdp-selector-group">
+            <div class="pdp-selector-label">
+              <span>COLOR: <strong id="pdpColorLabel" style="color: var(--color-black);">WASHED BLACK</strong></span>
+            </div>
+            <div class="pdp-color-swatches" id="pdpColorSwatches">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="pdp-selector-group">
+            <div class="pdp-selector-label">
+              <span>SELECT SIZE (<span id="pdpSelectedSize">L</span>)</span>
+              <span class="size-guide-trigger" onclick="openSizeModal()">SIZE GUIDE 📏</span>
+            </div>
+            <div class="pdp-size-pills" id="pdpSizeButtons">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Action Buttons (Neon Add to Cart + Buy It Now) -->
+          <div class="pdp-actions-row">
+            <button class="btn btn-primary btn-lg" onclick="handlePdpAddToCart()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span>ADD TO BAG</span>
+            </button>
+            <button class="btn btn-dark btn-lg" onclick="handlePdpBuyNow()">
+              <span>BUY IT NOW (EXPRESS CHECKOUT) ↗</span>
+            </button>
+          </div>
+
+          <!-- Pincode / POD Shipping Checker -->
+          <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+            <div style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">
+              ⚡ ESTIMATE DISPATCH (QIKINK POD)
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="pincodeInput" placeholder="Enter 6-digit Pincode" maxlength="6" style="flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.88rem;">
+              <button class="btn btn-dark btn-sm" onclick="checkPincode()">CHECK</button>
+            </div>
+            <div id="pincodeResult" style="margin-top: 8px; font-size: 0.82rem; font-weight: 600; display: none;"></div>
+          </div>
+
+          <!-- Accordion Drawers -->
+          <div class="pdp-accordions">
+            <div class="accordion-item open">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span>DETAILS & SPECIFICATIONS</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="accordion-content" id="pdpSpecsAccordion">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span>SIZING & FIT ADVICE</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="accordion-content">
+                <p>Authentic relaxed box-cut streetwear fit. Intended to fall loosely with dropped shoulders. For a tailored standard fit, choose one size down. Unisex design suitable for all genders.</p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span>SHIPPING & POD PRODUCTION</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="accordion-content">
+                <p>Each piece is printed on-demand via Qikink POD fulfillment in 24-48 hours. Standard courier transit time is 3-5 business days across India via Bluedart, Delhivery, or Xpressbees. Full tracking link and AWB provided automatically.</p>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span>WASH & CARE INSTRUCTIONS</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div class="accordion-content">
+                <p>Machine wash cold inside-out on gentle cycle. Do not iron directly on printed graphics. Do not bleach. Air dry in shade to maintain color depth and fabric texture.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 07 — YOU MAY ALSO LIKE Section -->
+    <section class="container" style="padding-bottom: 80px;">
+      <div class="section-header-row">
+        <div class="section-title-wrap">
+          <span class="card-badge badge-neon" style="margin-bottom: 8px;">RECOMMENDED</span>
+          <h2>YOU MAY ALSO LIKE</h2>
+          <p>Curated pieces designed to pair seamlessly with this drop.</p>
+        </div>
+      </div>
+      <div id="pdpRelatedGrid" class="product-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- PAGE 19 — Size Chart Modal -->
+  <div id="sizeGuideModal" class="modal-overlay" onclick="closeSizeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <span class="modal-close-btn" onclick="closeSizeModal()">&times;</span>
+      <span class="card-badge badge-neon" style="margin-bottom: 8px;">MEASUREMENT GUIDE</span>
+      <h3 style="font-size: 1.5rem; margin-bottom: 8px;">KRAAL OVERSIZED FIT CHART</h3>
+      <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-bottom: 18px;">
+        All dimensions are in inches. KRAAL garments have a relaxed dropped-shoulder box-cut drape. Choose your standard size for the signature oversized look.
+      </p>
+
+      <table class="size-chart-table">
+        <thead>
+          <tr>
+            <th>SIZE</th>
+            <th>CHEST (IN)</th>
+            <th>LENGTH (IN)</th>
+            <th>SHOULDER (IN)</th>
+            <th>SLEEVE (IN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S</strong></td><td>44"</td><td>29.0"</td><td>21.5"</td><td>9.5"</td></tr>
+          <tr><td><strong>M</strong></td><td>46"</td><td>29.5"</td><td>22.5"</td><td>9.8"</td></tr>
+          <tr><td><strong>L</strong></td><td>48"</td><td>30.0"</td><td>23.5"</td><td>10.0"</td></tr>
+          <tr><td><strong>XL</strong></td><td>50"</td><td>30.5"</td><td>24.5"</td><td>10.3"</td></tr>
+          <tr><td><strong>XXL</strong></td><td>52"</td><td>31.0"</td><td>25.5"</td><td>10.5"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 KRAAL STREETWEAR. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </a>
+    <a href="shop.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Shop</span>
+    </a>
+    <a href="wishlist.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <span>Saved</span>
+    </a>
+    <a href="cart.html" class="mobile-nav-item open-cart-trigger">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span>Bag</span>
+      <span class="action-badge cart-badge-count" style="display:none; top:-4px; right:12px;">0</span>
+    </a>
+  </nav>
+
+  <!-- Core Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabaseClient.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    let currentProduct = null;
+    let selectedSize = 'L';
+    let selectedColor = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof loadLiveCatalogFromSupabase === 'function') {
+        await loadLiveCatalogFromSupabase();
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const prodId = params.get('id');
+
+      currentProduct = getProductById(prodId) || KRAAL_PRODUCTS[0];
+      renderPdpPage(currentProduct);
+    });
+
+    function renderPdpPage(p) {
+      if (!p) return;
+      document.title = `${p.name} | KRAAL Streetwear`;
+
+      document.getElementById('pdpTitle').textContent = p.name;
+      document.getElementById('pdpBreadcrumbTitle').textContent = p.name;
+      document.getElementById('pdpBreadcrumbCat').textContent = p.categoryLabel;
+      document.getElementById('pdpPrice').textContent = formatPrice(p.price);
+      document.getElementById('pdpMrp').textContent = formatPrice(p.mrp);
+      document.getElementById('pdpDiscount').textContent = p.discount || 'LIMITED DROP';
+      document.getElementById('pdpBadge').textContent = p.badge || 'DROP 01';
+      document.getElementById('pdpDescription').textContent = p.description;
+
+      if (p.gsm) {
+        document.getElementById('pdpGsmBadge').textContent = 'PREMIUM COTTON';
+      }
+
+      // Main image & thumbs
+      const mainImg = document.getElementById('pdpMainImage');
+      mainImg.src = p.images[0];
+
+      const thumbsContainer = document.getElementById('pdpThumbnails');
+      thumbsContainer.innerHTML = p.images.map((imgUrl, idx) => `
+        <div class="pdp-thumb ${idx === 0 ? 'active' : ''}" onclick="switchPdpImage('${imgUrl}', this)">
+          <img src="${imgUrl}" alt="Thumbnail ${idx + 1}">
+        </div>
+      `).join('');
+
+      // Colors
+      const colorContainer = document.getElementById('pdpColorSwatches');
+      const colors = p.colors || [p.color || 'Washed Black'];
+      selectedColor = colors[0];
+      document.getElementById('pdpColorLabel').textContent = selectedColor.toUpperCase();
+
+      const colorMap = {
+        'Washed Black': '#1A1A1A',
+        'Obsidian Black': '#0A0A0A',
+        'Vintage White': '#F2F2F2',
+        'Vintage Chalk White': '#EDEDED',
+        'Moss Green': '#3A4D39',
+        'Matte Olive Green': '#4F5D2F',
+        'Mineral Acid Grey': '#595959',
+        'Raw Charcoal': '#262626',
+        'Earthy Taupe': '#8C7B70',
+        'Matte Black': '#111111'
+      };
+
+      colorContainer.innerHTML = colors.map((c, i) => `
+        <div class="color-swatch-circle ${i === 0 ? 'active' : ''}" 
+             style="background: ${colorMap[c] || '#222'};" 
+             title="${c}"
+             onclick="selectColor('${c}', this)">
+        </div>
+      `).join('');
+
+      // Sizes
+      const sizeContainer = document.getElementById('pdpSizeButtons');
+      selectedSize = p.sizes.includes('L') ? 'L' : p.sizes[0];
+      document.getElementById('pdpSelectedSize').textContent = selectedSize;
+
+      sizeContainer.innerHTML = p.sizes.map(s => `
+        <div class="size-pill-option ${s === selectedSize ? 'active' : ''}" onclick="selectSize('${s}', this)">
+          ${s}
+        </div>
+      `).join('');
+
+      // Specs
+      const specsBox = document.getElementById('pdpSpecsAccordion');
+      if (p.specs) {
+        specsBox.innerHTML = `
+          <ul style="display: flex; flex-direction: column; gap: 8px;">
+            ${Object.entries(p.specs).map(([key, val]) => `
+              <li><strong>${key}:</strong> ${val}</li>
+            `).join('')}
+          </ul>
+        `;
+      }
+
+      // Related products (real products only)
+      const relatedGrid = document.getElementById('pdpRelatedGrid');
+      const relatedSec = relatedGrid ? relatedGrid.closest('section') : null;
+      const related = KRAAL_PRODUCTS.filter(x => x.id !== p.id).slice(0, 4);
+      if (relatedGrid) {
+        if (related.length === 0) {
+          if (relatedSec) relatedSec.style.display = 'none';
+        } else {
+          if (relatedSec) relatedSec.style.display = 'block';
+          relatedGrid.innerHTML = related.map(rp => renderProductCard(rp)).join('');
+        }
+      }
+    }
+
+    function switchPdpImage(url, el) {
+      document.getElementById('pdpMainImage').src = url;
+      document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function selectColor(colorName, el) {
+      selectedColor = colorName;
+      document.getElementById('pdpColorLabel').textContent = colorName.toUpperCase();
+      document.querySelectorAll('.color-swatch-circle').forEach(s => s.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function selectSize(sizeStr, el) {
+      selectedSize = sizeStr;
+      document.getElementById('pdpSelectedSize').textContent = sizeStr;
+      document.querySelectorAll('.size-pill-option').forEach(s => s.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function handlePdpAddToCart() {
+      if (!currentProduct) return;
+      addToCart(currentProduct.id, selectedSize, 1);
+    }
+
+    function handlePdpBuyNow() {
+      if (!currentProduct) return;
+      addToCart(currentProduct.id, selectedSize, 1);
+      window.location.href = 'checkout.html';
+    }
+
+    function toggleAccordion(btn) {
+      const item = btn.closest('.accordion-item');
+      item.classList.toggle('open');
+    }
+
+    function openSizeModal() {
+      document.getElementById('sizeGuideModal').classList.add('active');
+    }
+
+    function closeSizeModal() {
+      document.getElementById('sizeGuideModal').classList.remove('active');
+    }
+
+    function checkPincode() {
+      const pin = document.getElementById('pincodeInput').value.trim();
+      const res = document.getElementById('pincodeResult');
+      if (pin.length !== 6 || isNaN(pin)) {
+        res.style.display = 'block';
+        res.style.color = 'var(--color-danger)';
+        res.textContent = 'Please enter a valid 6-digit Indian pincode.';
+        return;
+      }
+      res.style.display = 'block';
+      res.style.color = 'var(--color-success)';
+      res.textContent = `✓ Delivery available to ${pin} in 3-5 business days. Free shipping eligible.`;
+    }
+  </script>
+</body>
+</html>

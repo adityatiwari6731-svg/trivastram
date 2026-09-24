@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Wishlist | KRAAL Streetwear</title>
+  <meta name="description" content="View your saved KRAAL streetwear favorites, oversized tees, and cargo drops.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body class="has-bottom-nav">
+
+  <!-- Announcement Bar (Neon Lime) -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <div class="ticker-item">
+        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span class="badge-code">DROP LIVE</span>
+        <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
+        <span>✦</span>
+        <span>DIRECT DISPATCH FULFILLMENT</span>
+        <span>✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header-sticky-wrapper">
+    <header class="main-header container">
+      <div class="header-left">
+        <a href="index.html" class="brand-logo" aria-label="KRAAL Home">
+          KRAAL<span class="dot"></span>
+        </a>
+
+        <nav class="header-nav">
+          <a href="shop.html?collection=drop-01" class="nav-link">
+            DROP 01 <span class="nav-badge-pill">NEW</span>
+          </a>
+          <a href="shop.html" class="nav-link">SHOP ALL</a>
+          <a href="shop.html?cat=oversized-tees" class="nav-link">TEES</a>
+          <a href="shop.html?cat=hoodies" class="nav-link">HOODIES</a>
+          <a href="shop.html?cat=cargos" class="nav-link">BOTTOMS</a>
+          <a href="shop.html?cat=accessories" class="nav-link">ACCESSORIES</a>
+        </nav>
+      </div>
+
+      <!-- Live Search -->
+      <div class="header-search">
+        <form id="globalSearchForm">
+          <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="globalSearchInput" placeholder="Search for oversized tees, cargos, hoodies..." autocomplete="off">
+          </div>
+        </form>
+        <div id="searchDropdown" class="search-dropdown"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <a href="track.html" class="header-action-btn" title="Track Order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        </a>
+        <a href="wishlist.html" class="header-action-btn" title="Wishlist" style="color:var(--color-black);">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="action-badge wishlist-badge-count" style="display:none;">0</span>
+        </a>
+        <a href="cart.html" class="header-action-btn open-cart-trigger" title="Shopping Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-badge-count" style="display:none;">0</span>
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <main class="container" style="padding: 40px 24px 80px;">
+    <!-- Breadcrumbs -->
+    <div style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 700; color: var(--color-charcoal-muted); text-transform: uppercase; margin-bottom: 24px;">
+      <a href="index.html">Home</a> / <a href="shop.html">Shop</a> / <span style="color:var(--color-black);">Your Wishlist</span>
+    </div>
+
+    <!-- PAGE 08 — YOUR WISHLIST -->
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;">
+      <div>
+        <span class="card-badge badge-neon" style="margin-bottom: 6px;">SAVED SILHOUETTES</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">
+          YOUR WISHLIST (<span id="wishlistCountNum">0</span>)
+        </h1>
+      </div>
+      <a href="shop.html" class="btn btn-outline btn-sm">EXPLORE MORE DROPS ↗</a>
+    </div>
+
+    <div id="wishlistGrid" class="product-grid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="wishlistEmpty" style="display:none; text-align:center; padding: 70px 20px; background:var(--color-surface); border-radius:var(--radius-md);">
+      <h3 style="font-size: 1.6rem; margin-bottom: 8px;">YOUR WISHLIST IS EMPTY</h3>
+      <p style="color: var(--color-charcoal-muted); max-width: 420px; margin: 0 auto 24px;">
+        Tap the heart icon on any drop to save it to your wishlist for quick cop later.
+      </p>
+      <a href="shop.html" class="btn btn-primary btn-lg">DISCOVER DROPS ↗</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 KRAAL STREETWEAR. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabaseClient.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof loadLiveCatalogFromSupabase === 'function') {
+        await loadLiveCatalogFromSupabase();
+      }
+      renderWishlistPage();
+    });
+
+    window.addEventListener('kraal:wishlist-updated', () => {
+      renderWishlistPage();
+    });
+
+    function renderWishlistPage() {
+      const ids = getWishlist();
+      const grid = document.getElementById('wishlistGrid');
+      const empty = document.getElementById('wishlistEmpty');
+      document.getElementById('wishlistCountNum').textContent = ids.length;
+
+      if (ids.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = 'grid';
+      empty.style.display = 'none';
+
+      const items = ids.map(id => getProductById(id)).filter(Boolean);
+      grid.innerHTML = items.map(p => renderProductCard(p)).join('');
+    }
+  </script>
+</body>
+</html>

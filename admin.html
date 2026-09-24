@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRAAL Control Center | Qikink & Supabase POD Hub</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .admin-dashboard {
+      padding: 30px 0 60px;
+    }
+    .admin-tabs-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-charcoal-muted);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .admin-tab-btn.active {
+      color: var(--color-accent);
+      background: var(--color-accent-subtle);
+    }
+    .admin-tab-btn:hover:not(.active) {
+      color: var(--color-charcoal);
+      background: var(--color-surface);
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 2.2fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .status-connected { background: #E8F5E9; color: #2E7D32; }
+    .status-warning { background: #FFF3E0; color: #E65100; }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 14px;
+    }
+    .data-table th, .data-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+    }
+    .data-table th {
+      background: var(--color-surface);
+      color: var(--color-charcoal-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+    .product-thumb {
+      width: 48px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+    }
+    .image-upload-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 16px;
+      margin: 14px 0 20px;
+    }
+    .image-slot-card {
+      background: var(--color-surface);
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+    .image-slot-card:hover {
+      border-color: var(--color-accent);
+    }
+    .image-preview-box {
+      width: 100%;
+      height: 110px;
+      background: #FFFFFF;
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+    .image-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-group-full {
+      margin-bottom: 14px;
+    }
+    .form-group-full label, .form-row label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--color-charcoal);
+    }
+    .form-group-full input, .form-group-full select, .form-group-full textarea,
+    .form-row input, .form-row select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .sizes-checkbox-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .size-check-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      background: var(--color-surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+    }
+    .btn-danger-outline {
+      background: #FFF5F5 !important;
+      color: #E53E3E !important;
+      border: 1px solid #FEB2B2 !important;
+      transition: all 0.2s ease;
+    }
+    .btn-danger-outline:hover {
+      background: #E53E3E !important;
+      color: #FFFFFF !important;
+      border-color: #E53E3E !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="main-header container" style="height: 68px; border-bottom: 1px solid var(--color-border);">
+    <div class="header-left">
+      <a href="index.html" class="brand-logo">KRAAL<span class="dot"></span> <span style="font-size: 0.9rem; color: var(--color-accent); font-weight: 700;">OPS CENTER</span></a>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="shop.html" class="btn btn-outline btn-sm">VIEW SHOP</a>
+      <a href="track.html" class="btn btn-secondary btn-sm">TRACK DROPS</a>
+    </div>
+  </header>
+
+  <main class="container admin-dashboard">
+
+    <!-- Admin Tabs -->
+    <div class="admin-tabs-nav">
+      <button class="admin-tab-btn active" id="tabBtnProducts" onclick="switchAdminTab('products')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>
+        PRODUCTS CATALOG (DROPS)
+      </button>
+      <button class="admin-tab-btn" id="tabBtnOrders" onclick="switchAdminTab('orders')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        ORDERS & QIKINK DISPATCH
+      </button>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: PRODUCTS MANAGEMENT -->
+    <!-- ========================================================================= -->
+    <div id="tabContentProducts">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 4px;">Streetwear Drops & Catalog</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.92rem;">
+            Add products with up to 4 mockups, map them to Qikink SKUs, and manage your live store drops.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-outline" onclick="loadProductsCatalog()">REFRESH LIST</button>
+          <button class="btn btn-primary" onclick="openAddProductModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-right: 6px; vertical-align: -2px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            + ADD NEW PRODUCT / DROP
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div id="productsLoading" style="text-align: center; padding: 30px; display: none;">
+          <div style="display: inline-block; width: 30px; height: 30px; border: 3px solid var(--color-border); border-top-color: var(--color-accent); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Qikink SKU / ID</th>
+                <th>Selling Price</th>
+                <th>Sizes</th>
+                <th>Images</th>
+                <th style="text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; color: var(--color-charcoal-muted); padding: 30px;">
+                  Loading products catalog...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: ORDERS & POD DISPATCH -->
+    <!-- ========================================================================= -->
+    <div id="tabContentOrders" style="display: none;">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 4px;">POD Automation & Dispatch Engine</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.92rem;">
+            Real-time synchronization between KRAAL orders and Qikink Print-on-Demand production.
+          </p>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Status & Credentials Card -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="admin-card">
+            <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 16px;">System Connection</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700;">Supabase Database</span>
+                <span id="supabaseStatusPill" class="status-indicator status-warning">
+                  <span class="status-dot"></span> Checking...
+                </span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700;">POD Server Bridge</span>
+                <span id="bridgeStatusPill" class="status-indicator status-warning">
+                  <span class="status-dot"></span> Checking...
+                </span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700;">Qikink POD API</span>
+                <span id="qikinkStatusPill" class="status-indicator status-warning">
+                  <span class="status-dot"></span> Ready to Sync
+                </span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700;">Auto-Dispatch Orders</span>
+                <span class="status-indicator status-connected">
+                  <span class="status-dot"></span> ENABLED
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Table Card -->
+        <div class="admin-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h3 style="font-size: 1.1rem; font-weight: 800;">Recent Orders & POD Status</h3>
+            <button class="btn btn-outline btn-sm" onclick="loadRecentOrders()">REFRESH ORDERS</button>
+          </div>
+          <div id="ordersLoading" style="text-align: center; padding: 30px; display: none;">
+            <div style="display: inline-block; width: 30px; height: 30px; border: 3px solid var(--color-border); border-top-color: var(--color-accent); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>KRAAL Status</th>
+                  <th>Qikink ID / POD</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr>
+                  <td colspan="7" style="text-align: center; color: var(--color-charcoal-muted); padding: 30px;">
+                    No orders in database yet.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ADD NEW STREETWEAR PRODUCT -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="addProductModal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 1.4rem; font-weight: 900;">ADD NEW STREETWEAR DROP</h2>
+        <button onclick="closeAddProductModal()" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--color-charcoal-muted);">&times;</button>
+      </div>
+
+      <form id="addProductForm" onsubmit="handleSaveProduct(event)">
+        <!-- Title & Qikink SKU -->
+        <div class="form-row">
+          <div>
+            <label for="prodName">Product Title *</label>
+            <input type="text" id="prodName" required placeholder="e.g. Unisex Oversized Standard T-Shirt">
+          </div>
+          <div>
+            <label for="prodQikinkSku">Qikink Product ID / SKU *</label>
+            <input type="text" id="prodQikinkSku" required placeholder="e.g. 64794378">
+          </div>
+        </div>
+
+        <!-- Category & Badge -->
+        <div class="form-row">
+          <div>
+            <label for="prodCategory">Category *</label>
+            <select id="prodCategory" required>
+              <option value="oversized-tees">Oversized Tees</option>
+              <option value="cargos">Cargo Pants</option>
+              <option value="hoodies">Hoodies & Sweatshirts</option>
+              <option value="jackets">Jackets & Outerwear</option>
+              <option value="accessories">Accessories</option>
+            </select>
+          </div>
+          <div>
+            <label for="prodBadge">Product Badge</label>
+            <select id="prodBadge">
+              <option value="HOT DROP">HOT DROP</option>
+              <option value="BESTSELLER">BESTSELLER</option>
+              <option value="EXCLUSIVE">EXCLUSIVE</option>
+              <option value="LIMITED DROP">LIMITED DROP</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Prices -->
+        <div class="form-row">
+          <div>
+            <label for="prodPrice">Selling Price (₹) *</label>
+            <input type="number" id="prodPrice" required placeholder="699" min="1">
+          </div>
+          <div>
+            <label for="prodMrp">Display MRP (₹) *</label>
+            <input type="number" id="prodMrp" required placeholder="1299" min="1">
+          </div>
+        </div>
+
+        <!-- Available Sizes -->
+        <div class="form-group-full">
+          <label>Available Sizes *</label>
+          <div class="sizes-checkbox-group">
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="XS"> XS</label>
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="S" checked> S</label>
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="M" checked> M</label>
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="L" checked> L</label>
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="XL" checked> XL</label>
+            <label class="size-check-label"><input type="checkbox" name="prodSizes" value="XXL"> XXL</label>
+          </div>
+        </div>
+
+        <!-- Fabric & Fit Specs -->
+        <div class="form-row">
+          <div>
+            <label for="prodGsm">Fabric Material / Weight</label>
+            <input type="text" id="prodGsm" value="Heavyweight Cotton">
+          </div>
+          <div>
+            <label for="prodFit">Fit Type</label>
+            <input type="text" id="prodFit" value="Oversized Boxy Fit">
+          </div>
+        </div>
+
+        <!-- 3 to 4 Mockup Images Upload / URL Section -->
+        <div class="form-group-full">
+          <label>Product Mockups (Up to 4 Images) *</label>
+          <p style="font-size: 0.78rem; color: var(--color-charcoal-muted); margin-bottom: 8px;">
+            Upload files from your device or paste direct image URLs. Image 1 is the primary shop cover.
+          </p>
+
+          <div class="image-upload-grid">
+            <!-- Slot 1 -->
+            <div class="image-slot-card">
+              <span style="font-size: 0.72rem; font-weight: 700;">1. FRONT (COVER) *</span>
+              <div class="image-preview-box" id="previewBox1">
+                <span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>
+              </div>
+              <input type="file" accept="image/*" style="font-size: 0.7rem; width: 100%; margin-bottom: 4px;" onchange="handleImageFile(this, 1)">
+              <input type="url" id="imageUrl1" placeholder="Or Image URL" style="font-size: 0.75rem;" oninput="handleImageUrlInput(this.value, 1)">
+            </div>
+
+            <!-- Slot 2 -->
+            <div class="image-slot-card">
+              <span style="font-size: 0.72rem; font-weight: 700;">2. BACK MOCKUP</span>
+              <div class="image-preview-box" id="previewBox2">
+                <span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>
+              </div>
+              <input type="file" accept="image/*" style="font-size: 0.7rem; width: 100%; margin-bottom: 4px;" onchange="handleImageFile(this, 2)">
+              <input type="url" id="imageUrl2" placeholder="Or Image URL" style="font-size: 0.75rem;" oninput="handleImageUrlInput(this.value, 2)">
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="image-slot-card">
+              <span style="font-size: 0.72rem; font-weight: 700;">3. DETAIL / MODEL</span>
+              <div class="image-preview-box" id="previewBox3">
+                <span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>
+              </div>
+              <input type="file" accept="image/*" style="font-size: 0.7rem; width: 100%; margin-bottom: 4px;" onchange="handleImageFile(this, 3)">
+              <input type="url" id="imageUrl3" placeholder="Or Image URL" style="font-size: 0.75rem;" oninput="handleImageUrlInput(this.value, 3)">
+            </div>
+
+            <!-- Slot 4 -->
+            <div class="image-slot-card">
+              <span style="font-size: 0.72rem; font-weight: 700;">4. LIFESTYLE</span>
+              <div class="image-preview-box" id="previewBox4">
+                <span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>
+              </div>
+              <input type="file" accept="image/*" style="font-size: 0.7rem; width: 100%; margin-bottom: 4px;" onchange="handleImageFile(this, 4)">
+              <input type="url" id="imageUrl4" placeholder="Or Image URL" style="font-size: 0.75rem;" oninput="handleImageUrlInput(this.value, 4)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group-full">
+          <label for="prodDesc">Product Description</label>
+          <textarea id="prodDesc" rows="3" placeholder="Describe the graphic aesthetic, fabric weight, and styling tips..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
+          <button type="button" class="btn btn-outline" onclick="closeAddProductModal()">CANCEL</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveProduct">PUBLISH TO STORE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabaseClient.js"></script>
+  <script>
+    const uploadedImages = ['', '', '', ''];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkStatus();
+      loadProductsCatalog();
+      loadRecentOrders();
+    });
+
+    function switchAdminTab(tab) {
+      document.getElementById('tabBtnProducts').classList.toggle('active', tab === 'products');
+      document.getElementById('tabBtnOrders').classList.toggle('active', tab === 'orders');
+      document.getElementById('tabContentProducts').style.display = tab === 'products' ? 'block' : 'none';
+      document.getElementById('tabContentOrders').style.display = tab === 'orders' ? 'block' : 'none';
+    }
+
+    async function checkStatus() {
+      const isConfigured = window.kraalSupabase.isSupabaseConfigured();
+      const sbPill = document.getElementById('supabaseStatusPill');
+      const qkPill = document.getElementById('qikinkStatusPill');
+      const bridgePill = document.getElementById('bridgeStatusPill');
+
+      if (isConfigured) {
+        sbPill.className = 'status-indicator status-connected';
+        sbPill.innerHTML = '<span class="status-dot"></span> CONNECTED';
+      } else {
+        sbPill.className = 'status-indicator status-warning';
+        sbPill.innerHTML = '<span class="status-dot"></span> CONFIG NEEDED';
+      }
+
+      if (typeof KRAAL_QIKINK_CONFIG !== 'undefined' && KRAAL_QIKINK_CONFIG.CLIENT_SECRET) {
+        qkPill.className = 'status-indicator status-connected';
+        qkPill.innerHTML = `<span class="status-dot"></span> CONNECTED (${KRAAL_QIKINK_CONFIG.ENV.toUpperCase()})`;
+      } else {
+        qkPill.className = 'status-indicator status-warning';
+        qkPill.innerHTML = '<span class="status-dot"></span> SECRET NEEDED';
+      }
+
+      // Check Local POD Server Bridge status
+      if (bridgePill) {
+        const isHostedLocal = window.location.port === '3000' || window.location.origin.includes(':3000');
+        const healthUrl = isHostedLocal ? '/api/health' : 'http://localhost:3000/api/health';
+        try {
+          const res = await fetch(healthUrl);
+          if (res.ok) {
+            bridgePill.className = 'status-indicator status-connected';
+            bridgePill.innerHTML = '<span class="status-dot"></span> RUNNING (:3000)';
+          } else {
+            throw new Error();
+          }
+        } catch {
+          bridgePill.className = 'status-indicator status-warning';
+          bridgePill.innerHTML = '<span class="status-dot"></span> OFFLINE';
+        }
+      }
+
+      // Show friendly banner if running on file://
+      if (window.location.protocol === 'file:' && !document.getElementById('fileProtocolNotice')) {
+        const banner = document.createElement('div');
+        banner.id = 'fileProtocolNotice';
+        banner.style.cssText = 'background: #FFF3CD; border-bottom: 1px solid #FFEBAA; color: #856404; padding: 10px 24px; font-size: 0.85rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 9999;';
+        banner.innerHTML = `
+          <div>
+            ⚡ <strong>Tip:</strong> Open via your local server: <a href="http://localhost:3000/admin.html" style="color: #000; text-decoration: underline; font-weight: 800; margin-left: 4px;">http://localhost:3000/admin.html</a>
+          </div>
+          <button onclick="this.parentElement.remove()" style="background:none; border:none; font-weight:bold; cursor:pointer; color:#856404; font-size: 1rem;">✕</button>
+        `;
+        document.body.prepend(banner);
+      }
+    }
+
+    // --- Image Upload Handlers ---
+    function handleImageFile(input, slotNumber) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64 = e.target.result;
+        uploadedImages[slotNumber - 1] = base64;
+        document.getElementById(`previewBox${slotNumber}`).innerHTML = `<img src="${base64}">`;
+        document.getElementById(`imageUrl${slotNumber}`).value = '';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleImageUrlInput(url, slotNumber) {
+      const trimmed = url.trim();
+      uploadedImages[slotNumber - 1] = trimmed;
+      if (trimmed) {
+        document.getElementById(`previewBox${slotNumber}`).innerHTML = `<img src="${trimmed}" onerror="this.src=''; this.alt='Invalid URL';">`;
+      } else {
+        document.getElementById(`previewBox${slotNumber}`).innerHTML = `<span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>`;
+      }
+    }
+
+    function openAddProductModal() {
+      document.getElementById('addProductModal').classList.add('active');
+    }
+
+    function closeAddProductModal() {
+      document.getElementById('addProductModal').classList.remove('active');
+      document.getElementById('addProductForm').reset();
+      for (let i = 1; i <= 4; i++) {
+        uploadedImages[i - 1] = '';
+        document.getElementById(`previewBox${i}`).innerHTML = `<span style="font-size: 0.7rem; color: var(--color-charcoal-muted);">No Image</span>`;
+      }
+    }
+
+    // --- Save Product to Supabase ---
+    async function handleSaveProduct(e) {
+      e.preventDefault();
+      const client = window.kraalSupabase.getSupabaseClient();
+      if (!client) {
+        alert("Please ensure Supabase is configured.");
+        return;
+      }
+
+      const btn = document.getElementById('btnSaveProduct');
+      const origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'PUBLISHING DROP...';
+
+      const name = document.getElementById('prodName').value.trim();
+      const qikinkSku = document.getElementById('prodQikinkSku').value.trim();
+      const category = document.getElementById('prodCategory').value;
+      const categoryLabel = document.getElementById('prodCategory').selectedOptions[0].text;
+      const price = Number(document.getElementById('prodPrice').value);
+      const mrp = Number(document.getElementById('prodMrp').value);
+      const badge = document.getElementById('prodBadge').value;
+      const gsm = document.getElementById('prodGsm').value.trim();
+      const fit = document.getElementById('prodFit').value.trim();
+      const description = document.getElementById('prodDesc').value.trim();
+
+      const checkedSizes = Array.from(document.querySelectorAll('input[name="prodSizes"]:checked')).map(cb => cb.value);
+      const images = uploadedImages.filter(img => img && img.trim().length > 0);
+
+      if (images.length === 0) {
+        alert("Please provide at least 1 front mockup image (upload file or paste URL).");
+        btn.disabled = false;
+        btn.textContent = origText;
+        return;
+      }
+
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+      try {
+        const { data, error } = await client
+          .from('products')
+          .insert([{
+            qikink_product_id: qikinkSku,
+            name: name,
+            slug: slug + '-' + Math.floor(1000 + Math.random() * 9000),
+            category: category,
+            category_label: categoryLabel,
+            description: description || "Authentic heavy-GSM streetwear piece designed for the modern underground.",
+            price: price,
+            mrp: mrp,
+            images: images,
+            sizes: checkedSizes.length > 0 ? checkedSizes : ["S", "M", "L", "XL"],
+            gsm: gsm,
+            fit: fit,
+            badge: badge,
+            is_active: true
+          }])
+          .select()
+          .single();
+
+        if (error) {
+          console.error("Supabase Product Insert Error:", error);
+          alert("Error adding product: " + error.message);
+          return;
+        }
+
+        alert(`🔥 "${name}" has been published to your store!`);
+        closeAddProductModal();
+        loadProductsCatalog();
+
+      } catch (err) {
+        console.error("Save product error:", err);
+        alert("Failed to save product: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = origText;
+      }
+    }
+
+    // --- Load Products Catalog ---
+    async function loadProductsCatalog() {
+      const client = window.kraalSupabase.getSupabaseClient();
+      const tbody = document.getElementById('productsTableBody');
+      const loader = document.getElementById('productsLoading');
+
+      if (!client) return;
+      loader.style.display = 'block';
+
+      try {
+        const { data: products, error } = await client
+          .from('products')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        loader.style.display = 'none';
+
+        if (error || !products || products.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 30px; color: var(--color-charcoal-muted);">No custom drops in database yet. Click <strong>+ ADD NEW PRODUCT</strong> to add your Qikink streetwear item!</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = products.map(p => `
+          <tr>
+            <td>
+              <img src="${p.images && p.images[0] ? p.images[0] : 'assets/images/placeholder.jpg'}" class="product-thumb" alt="${p.name}">
+            </td>
+            <td>
+              <strong>${p.name}</strong><br>
+              <small style="color:var(--color-charcoal-muted);">${p.badge || 'DROP'}</small>
+            </td>
+            <td>${p.category_label || p.category}</td>
+            <td><code style="background:var(--color-surface); padding:2px 6px; border-radius:4px; font-weight:700;">${p.qikink_product_id || 'N/A'}</code></td>
+            <td>
+              <strong>₹${Number(p.price).toLocaleString('en-IN')}</strong><br>
+              <small style="text-decoration: line-through; color:var(--color-charcoal-muted);">₹${Number(p.mrp).toLocaleString('en-IN')}</small>
+            </td>
+            <td>${(p.sizes || []).join(', ')}</td>
+            <td><strong>${(p.images || []).length}</strong> shots</td>
+            <td style="text-align: right;">
+              <button class="btn btn-outline btn-sm" style="color:#C0392B; border-color:#C0392B;" onclick="deleteProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}')">
+                REMOVE
+              </button>
+            </td>
+          </tr>
+        `).join('');
+
+      } catch (err) {
+        loader.style.display = 'none';
+        console.error(err);
+      }
+    }
+
+    // --- Delete / Remove Product ---
+    async function deleteProduct(productId, productName) {
+      if (!confirm(`Are you sure you want to permanently remove "${productName}" from your store?`)) {
+        return;
+      }
+
+      const client = window.kraalSupabase.getSupabaseClient();
+      if (!client) return;
+
+      try {
+        const { error } = await client
+          .from('products')
+          .delete()
+          .eq('id', productId);
+
+        if (error) {
+          alert('Could not delete product: ' + error.message);
+          return;
+        }
+
+        alert(`"${productName}" was removed from your store.`);
+        loadProductsCatalog();
+
+      } catch (err) {
+        console.error("Delete error:", err);
+        alert('Delete failed: ' + err.message);
+      }
+    }
+
+    // --- Load Recent Orders ---
+    async function loadRecentOrders() {
+      const client = window.kraalSupabase.getSupabaseClient();
+      const tbody = document.getElementById('ordersTableBody');
+      if (!client) return;
+
+      document.getElementById('ordersLoading').style.display = 'block';
+
+      try {
+        const { data: orders, error } = await client
+          .from('orders')
+          .select('*, order_items(*)')
+          .order('created_at', { ascending: false })
+          .limit(20);
+
+        document.getElementById('ordersLoading').style.display = 'none';
+
+        if (error || !orders || orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 24px; color: var(--color-charcoal-muted);">No orders in database yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = orders.map(o => `
+          <tr>
+            <td><strong>${o.order_number}</strong></td>
+            <td>${o.customer_name}<br><small style="color:var(--color-charcoal-muted);">${o.customer_phone}</small></td>
+            <td>₹${Number(o.grand_total).toLocaleString('en-IN')}</td>
+            <td><span class="card-badge ${o.payment_method === 'cod' ? 'badge-dark' : 'badge-primary'}">${(o.payment_method || 'cod').toUpperCase()}</span></td>
+            <td><span style="font-weight:700;">${(o.status || 'placed').toUpperCase()}</span></td>
+            <td>
+              ${o.qikink_order_id ? `<span style="color:#2E7D32; font-weight:700;">#${o.qikink_order_id}</span>` : `<span style="color:var(--color-charcoal-muted);">Not Pushed</span>`}
+              ${o.tracking_number ? `<br><small>AWB: ${o.tracking_number}</small>` : ''}
+            </td>
+            <td style="text-align: right;">
+              <div style="display: inline-flex; gap: 8px; justify-content: flex-end; align-items: center;">
+                <button class="btn ${o.qikink_order_id ? 'btn-outline' : 'btn-primary'} btn-sm" onclick="pushSingleOrder('${o.id}', this, ${!!o.qikink_order_id})" style="font-weight:700; font-size:0.75rem; padding: 6px 12px; white-space: nowrap;">
+                  ${o.qikink_order_id ? 'FORCE RE-PUSH' : 'PUSH TO QIKINK'}
+                </button>
+                <button class="btn btn-danger-outline btn-sm" onclick="removeSingleOrder('${o.id}', '${o.order_number}', '${(o.customer_name || '').replace(/'/g, "\\'")}', this)" style="font-weight:700; font-size:0.75rem; padding: 6px 10px; white-space: nowrap;" title="Permanently delete this fake or test order">
+                  🗑️ REMOVE
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+      } catch (e) {
+        document.getElementById('ordersLoading').style.display = 'none';
+        console.error(e);
+      }
+    }
+
+    // --- Remove / Delete Fake or Test Order ---
+    async function removeSingleOrder(orderId, orderNumber, customerName, btnElement) {
+      const confirmed = confirm(
+        `🗑️ Delete Order #${orderNumber}?\n\n` +
+        `Customer: ${customerName || 'N/A'}\n\n` +
+        `Are you sure you want to permanently delete this order from your database?\n` +
+        `This will clean up this fake/test order and its items.`
+      );
+      if (!confirmed) return;
+
+      const client = window.kraalSupabase.getSupabaseClient();
+      if (!client) {
+        alert("Supabase not connected.");
+        return;
+      }
+
+      const origText = btnElement ? btnElement.innerHTML : '🗑️ REMOVE';
+      if (btnElement) {
+        btnElement.disabled = true;
+        btnElement.innerHTML = 'REMOVING...';
+      }
+
+      try {
+        // 1. Delete associated line items first
+        const { error: itemsErr } = await client
+          .from('order_items')
+          .delete()
+          .eq('order_id', orderId);
+
+        if (itemsErr) {
+          console.warn("Could not delete order items:", itemsErr);
+        }
+
+        // 2. Delete the order record
+        const { error: orderErr } = await client
+          .from('orders')
+          .delete()
+          .eq('id', orderId);
+
+        if (orderErr) {
+          alert('Could not remove order: ' + orderErr.message);
+          return;
+        }
+
+        alert(`✅ Order #${orderNumber} has been removed from your database.`);
+        loadRecentOrders();
+
+      } catch (err) {
+        console.error('Remove order error:', err);
+        alert('Failed to remove order: ' + err.message);
+      } finally {
+        if (btnElement) {
+          btnElement.disabled = false;
+          btnElement.innerHTML = origText;
+        }
+      }
+    }
+
+    async function pushSingleOrder(orderId, btnElement, isRepush = false) {
+      const client = window.kraalSupabase.getSupabaseClient();
+      if (!client) {
+        alert("Supabase not connected.");
+        return;
+      }
+
+      if (!KRAAL_QIKINK_CONFIG.CLIENT_SECRET) {
+        alert("Please ensure your Qikink Client Secret is added in assets/js/supabaseClient.js.");
+        return;
+      }
+
+      let forceNewDispatch = false;
+      if (isRepush) {
+        const confirmRepush = confirm(
+          "This order has already been registered with Qikink.\n\n" +
+          "Do you want to dispatch a NEW production order with a unique dispatch ID to Qikink?\n\n" +
+          "Click OK to force-dispatch a new job, or Cancel to abort."
+        );
+        if (!confirmRepush) return;
+        forceNewDispatch = true;
+      }
+
+      const origText = btnElement ? btnElement.textContent : 'PUSH TO QIKINK';
+      if (btnElement) {
+        btnElement.disabled = true;
+        btnElement.textContent = 'PUSHING...';
+      }
+
+      try {
+        const { data: order, error } = await client
+          .from('orders')
+          .select('*, order_items(*)')
+          .eq('id', orderId)
+          .single();
+
+        if (error || !order) {
+          alert('Could not fetch order from Supabase: ' + (error?.message || 'Not found'));
+          return;
+        }
+
+        const qikinkRes = await pushOrderToQikinkAPI(order, order.order_items || [], { forceNewDispatch });
+        console.log("Manual Push Qikink Response:", qikinkRes);
+
+        if (qikinkRes && (qikinkRes.order_id || qikinkRes.status_code === '200')) {
+          const qkId = String(qikinkRes.order_id || order.order_number);
+          const { data: updatedRows, error: updateErr } = await client.from('orders').update({
+            qikink_order_id: qkId,
+            qikink_status: 'in_production',
+            status: 'pushed_to_qikink',
+            updated_at: new Date().toISOString()
+          }).eq('id', order.id).select();
+
+          if (updateErr || !updatedRows || updatedRows.length === 0) {
+            console.warn("Supabase update blocked by RLS policies:", updateErr);
+            alert(
+              `⚡ Qikink accepted the order (ID: #${qkId})!\n\n` +
+              `⚠️ However, Supabase blocked saving the status because the UPDATE policy on the "orders" table is missing.\n\n` +
+              `Please execute the updated 'supabase_setup.sql' in your Supabase SQL Editor to allow status updates.`
+            );
+          } else if (qikinkRes.already_exists) {
+            alert(`ℹ️ Order ${order.order_number} is already in the Qikink system.\nUpdated status in KRAAL to: PUSHED_TO_QIKINK / IN_PRODUCTION.`);
+          } else {
+            alert(`🎉 Order ${order.order_number} successfully pushed to Qikink!\nQikink Order ID: #${qkId}`);
+          }
+          loadRecentOrders();
+        } else {
+          const errDetail = qikinkRes?.error || qikinkRes?.message || JSON.stringify(qikinkRes);
+          alert('Qikink rejected order: ' + errDetail);
+        }
+      } catch (err) {
+        console.error('Push error:', err);
+        alert('Push failed: ' + err.message);
+      } finally {
+        if (btnElement) {
+          btnElement.disabled = false;
+          btnElement.textContent = origText;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
