@@ -1,0 +1,12 @@
+{
+  "name": "trivastram-streetwear",
+  "version": "1.0.0",
+  "description": "TRIVASTRAM Streetwear Official Store & Qikink POD Bridge",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {}
+}

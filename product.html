@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drop Details | KRAAL Streetwear</title>
-  <meta name="description" content="View product specifications, streetwear fit details, and order heavyweight streetwear from KRAAL.">
+  <title>Drop Details | TRIVASTRAM Streetwear</title>
+  <meta name="description" content="View product specifications, streetwear fit details, and order heavyweight streetwear from TRIVASTRAM.">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
   <div class="announcement-bar">
     <div class="ticker-track">
       <div class="ticker-item">
-        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span>⚡ BUILT FOR RESTLESS MINDS</span>
         <span class="badge-code">DROP LIVE</span>
         <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
         <span>✦</span>
@@ -23,7 +23,7 @@
         <span>✦</span>
       </div>
       <div class="ticker-item">
-        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span>⚡ BUILT FOR RESTLESS MINDS</span>
         <span class="badge-code">DROP LIVE</span>
         <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
         <span>✦</span>
@@ -37,13 +37,13 @@
   <div class="header-sticky-wrapper">
     <header class="main-header container">
       <div class="header-left">
-        <a href="index.html" class="brand-logo" aria-label="KRAAL Home">
-          KRAAL<span class="dot"></span>
+        <a href="index.html" class="brand-logo" aria-label="TRIVASTRAM Home">
+          TRIVASTRAM<span class="dot"></span>
         </a>
 
         <nav class="header-nav">
-          <a href="shop.html?collection=drop-01" class="nav-link">
-            DROP 01 <span class="nav-badge-pill">NEW</span>
+          <a href="shop.html" class="nav-link">
+            COLLECTION <span class="nav-badge-pill">NEW</span>
           </a>
           <a href="shop.html" class="nav-link">SHOP ALL</a>
           <a href="shop.html?cat=oversized-tees" class="nav-link">TEES</a>
@@ -125,7 +125,7 @@
         <!-- Right: Info Panel -->
         <div class="pdp-info-panel">
           <div style="margin-bottom: 12px; display: flex; gap: 8px; align-items: center;">
-            <span class="card-badge badge-neon" id="pdpBadge">DROP 01</span>
+            <span class="card-badge badge-neon" id="pdpBadge">NEW IN</span>
             <span class="card-badge badge-dark" id="pdpGsmBadge">HEAVYWEIGHT</span>
           </div>
 
@@ -138,7 +138,7 @@
           </div>
 
           <p style="font-size: 0.95rem; color: var(--color-charcoal-light); margin-bottom: 24px; line-height: 1.6;" id="pdpDescription">
-            Drop 01 authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.
+            Authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.
           </p>
 
           <!-- Color Selector -->
@@ -251,9 +251,9 @@
     <div class="modal-box" onclick="event.stopPropagation()">
       <span class="modal-close-btn" onclick="closeSizeModal()">&times;</span>
       <span class="card-badge badge-neon" style="margin-bottom: 8px;">MEASUREMENT GUIDE</span>
-      <h3 style="font-size: 1.5rem; margin-bottom: 8px;">KRAAL OVERSIZED FIT CHART</h3>
+      <h3 style="font-size: 1.5rem; margin-bottom: 8px;">TRIVASTRAM OVERSIZED FIT CHART</h3>
       <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-bottom: 18px;">
-        All dimensions are in inches. KRAAL garments have a relaxed dropped-shoulder box-cut drape. Choose your standard size for the signature oversized look.
+        All dimensions are in inches. TRIVASTRAM garments have a relaxed dropped-shoulder box-cut drape. Choose your standard size for the signature oversized look.
       </p>
 
       <table class="size-chart-table">
@@ -281,7 +281,7 @@
   <footer class="main-footer">
     <div class="container">
       <div class="footer-bottom-bar">
-        <div>&copy; 2026 KRAAL STREETWEAR. ALL RIGHTS RESERVED.</div>
+        <div>&copy; 2026 TRIVASTRAM STREETWEAR. ALL RIGHTS RESERVED.</div>
       </div>
     </div>
   </footer>
@@ -326,13 +326,15 @@
       const params = new URLSearchParams(window.location.search);
       const prodId = params.get('id');
 
-      currentProduct = getProductById(prodId) || KRAAL_PRODUCTS[0];
+      const catalog = (typeof TRIVASTRAM_PRODUCTS !== 'undefined' ? TRIVASTRAM_PRODUCTS : (typeof KRAAL_PRODUCTS !== 'undefined' ? KRAAL_PRODUCTS : []));
+      currentProduct = getProductById(prodId) || catalog[0];
+
       renderPdpPage(currentProduct);
     });
 
     function renderPdpPage(p) {
       if (!p) return;
-      document.title = `${p.name} | KRAAL Streetwear`;
+      document.title = `${p.name} | TRIVASTRAM Streetwear`;
 
       document.getElementById('pdpTitle').textContent = p.name;
       document.getElementById('pdpBreadcrumbTitle').textContent = p.name;
@@ -340,7 +342,7 @@
       document.getElementById('pdpPrice').textContent = formatPrice(p.price);
       document.getElementById('pdpMrp').textContent = formatPrice(p.mrp);
       document.getElementById('pdpDiscount').textContent = p.discount || 'LIMITED DROP';
-      document.getElementById('pdpBadge').textContent = p.badge || 'DROP 01';
+      document.getElementById('pdpBadge').textContent = p.badge || 'COLLECTION';
       document.getElementById('pdpDescription').textContent = p.description;
 
       if (p.gsm) {
@@ -409,9 +411,11 @@
       }
 
       // Related products (real products only)
+      const catalog = (typeof TRIVASTRAM_PRODUCTS !== 'undefined' ? TRIVASTRAM_PRODUCTS : (typeof KRAAL_PRODUCTS !== 'undefined' ? KRAAL_PRODUCTS : []));
       const relatedGrid = document.getElementById('pdpRelatedGrid');
       const relatedSec = relatedGrid ? relatedGrid.closest('section') : null;
-      const related = KRAAL_PRODUCTS.filter(x => x.id !== p.id).slice(0, 4);
+      const related = catalog.filter(x => x.id !== p.id).slice(0, 4);
+
       if (relatedGrid) {
         if (related.length === 0) {
           if (relatedSec) relatedSec.style.display = 'none';

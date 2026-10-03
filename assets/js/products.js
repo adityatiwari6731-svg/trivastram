@@ -1,6 +1,6 @@
 /**
- * KRAAL STREETWEAR - PRODUCT CATALOG DATASET
- * Built for Restless Minds | Drop 01
+ * TRIVASTRAM STREETWEAR - PRODUCT CATALOG DATASET
+ * Built for Restless Minds | Streetwear
  * 100% Authentic Live Products Synced with Supabase & Qikink POD.
  * All fake/mock products removed.
  */
@@ -14,7 +14,7 @@ const REAL_STORE_PRODUCTS = [
     name: "Unisex Oversized Standard T-Shirt",
     category: "oversized-tees",
     categoryLabel: "Oversized Tees",
-    collection: "Drop 01",
+    collection: "Streetwear",
     price: 699,
     mrp: 1000,
     discount: "30% OFF",
@@ -30,7 +30,7 @@ const REAL_STORE_PRODUCTS = [
     images: [
       "https://qikink-assets.s3.ap-south-1.amazonaws.com/clients/645759/clientProducts/32397189/images/Front_1_c_3.jpg"
     ],
-    description: "Drop 01 authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.",
+    description: "Authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.",
     specs: {
       "Fit": "Boxy Drop-Shoulder Oversized",
       "Fabric": "100% Combed Heavy Cotton",
@@ -53,10 +53,10 @@ function getInitialCatalog() {
         const parsed = JSON.parse(cached);
         // Purge any old fake product traces from cache
         const hasFakes = Array.isArray(parsed) && parsed.some(p => 
-          p.id === 'kraal-too-many-thoughts' || 
-          p.id === 'kraal-acid-wash-cyber-tee' ||
-          p.id === 'kraal-overthinker-boxy-hoodie' ||
-          p.id === 'kraal-tactical-parachute-cargo'
+          p.id === 'trivastram-too-many-thoughts' || 
+          p.id === 'trivastram-acid-wash-cyber-tee' ||
+          p.id === 'trivastram-overthinker-boxy-hoodie' ||
+          p.id === 'trivastram-tactical-parachute-cargo'
         );
         if (hasFakes) {
           localStorage.removeItem('kraal_cached_products');
@@ -71,7 +71,9 @@ function getInitialCatalog() {
   return REAL_STORE_PRODUCTS;
 }
 
-let KRAAL_PRODUCTS = getInitialCatalog();
+let TRIVASTRAM_PRODUCTS = getInitialCatalog();
+let KRAAL_PRODUCTS = TRIVASTRAM_PRODUCTS; // Backwards compatibility
+
 
 // Helper functions for filtering and lookup
 function getProductById(id) {
@@ -82,7 +84,7 @@ function getProductById(id) {
     String(item.qikinkSku) === String(id)
   );
   // If an old fake ID was requested, gracefully fallback to the primary real drop
-  if (!found && KRAAL_PRODUCTS.length > 0 && String(id).startsWith('kraal-')) {
+  if (!found && KRAAL_PRODUCTS.length > 0 && String(id).startsWith('trivastram-')) {
     return KRAAL_PRODUCTS[0];
   }
   return found || null;
@@ -117,7 +119,7 @@ async function loadLiveCatalogFromSupabase() {
           localStorage.setItem('kraal_cached_products', JSON.stringify(KRAAL_PRODUCTS));
         } catch (_) {}
         console.log("🔥 Loaded " + KRAAL_PRODUCTS.length + " real drop(s) from Supabase/Qikink!");
-        window.dispatchEvent(new CustomEvent('kraal:products-updated', { detail: { products: KRAAL_PRODUCTS } }));
+        window.dispatchEvent(new CustomEvent('trivastram:products-updated', { detail: { products: KRAAL_PRODUCTS } }));
       }
     } catch (e) {
       console.warn("Using verified real catalog fallback:", e);

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KRAAL STREETWEAR - OFFICIAL DESIGN SYSTEM & CORE STYLESHEET
+   TRIVASTRAM STREETWEAR - OFFICIAL DESIGN SYSTEM & CORE STYLESHEET
    Aesthetic: High-Voltage Brutalist Editorial Streetwear
    - Accent: Electric Neon Acid Lime (#CCFF00)
    - Base: Pure Crisp White (#FFFFFF) & Deep Dark (#0A0A0A)
@@ -1945,3 +1945,277 @@ h1, h2, h3, h4, h5, h6 {
   width: 20px;
   height: 20px;
 }
+
+/* ==========================================================================
+   CART SLIDE-OUT DRAWER & EMPTY STATE
+   ========================================================================== */
+.cart-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+  z-index: 1000;
+}
+
+.cart-drawer-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-white);
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1001;
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+.cart-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+.cart-drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--color-black);
+}
+
+.cart-drawer-title svg {
+  color: var(--color-black);
+}
+
+.cart-drawer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--color-charcoal);
+  transition: var(--transition);
+}
+
+.cart-drawer-close:hover {
+  background: var(--color-surface);
+  color: var(--color-black);
+}
+
+/* Drawer Shipping Meter Box */
+.shipping-meter-box {
+  background: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 14px 24px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.shipping-meter-box strong {
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.shipping-progress-bar {
+  margin-top: 8px;
+  height: 5px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.shipping-progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  transition: width 0.35s ease;
+}
+
+/* Cart Drawer Scrollable Body */
+.cart-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Empty State inside Drawer */
+.cart-drawer-body .cart-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 16px;
+  margin: auto 0;
+}
+
+.cart-drawer-body .cart-empty-state svg {
+  width: 56px;
+  height: 56px;
+  stroke: var(--color-charcoal-muted);
+  margin-bottom: 18px;
+}
+
+.cart-drawer-body .cart-empty-state h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-black);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.cart-drawer-body .cart-empty-state p {
+  font-size: 0.88rem;
+  color: var(--color-charcoal-muted);
+  max-width: 260px;
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+/* Drawer Cart Items */
+.cart-drawer-item {
+  display: flex;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.cart-drawer-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cart-drawer-item .cart-item-img {
+  width: 76px;
+  height: 94px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.cart-drawer-item .cart-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-drawer-item .cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.cart-item-title a:hover {
+  color: var(--color-accent-text);
+}
+
+.cart-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.meta-chip {
+  background: var(--color-surface);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  color: var(--color-charcoal);
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.cart-item-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--color-black);
+}
+
+/* Drawer Footer */
+.cart-drawer-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 20px 24px;
+  background: var(--color-white);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cart-drawer-footer .cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  margin-bottom: 8px;
+  color: var(--color-charcoal);
+}
+
+.cart-drawer-footer .cart-summary-row.total-row {
+  border-top: 1px solid var(--color-border);
+  padding-top: 12px;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.cart-drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-charcoal {
+  background-color: var(--color-charcoal);
+  color: var(--color-white);
+  border: 1px solid var(--color-charcoal);
+}
+
+.btn-charcoal:hover {
+  background-color: var(--color-black);
+  color: var(--color-accent);
+}
+

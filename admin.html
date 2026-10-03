@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KRAAL Control Center | Qikink & Supabase POD Hub</title>
+  <title>TRIVASTRAM Control Center | Qikink & Supabase POD Hub</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
     .admin-dashboard {
@@ -226,7 +226,7 @@
   <!-- Top Navigation -->
   <header class="main-header container" style="height: 68px; border-bottom: 1px solid var(--color-border);">
     <div class="header-left">
-      <a href="index.html" class="brand-logo">KRAAL<span class="dot"></span> <span style="font-size: 0.9rem; color: var(--color-accent); font-weight: 700;">OPS CENTER</span></a>
+      <a href="index.html" class="brand-logo">TRIVASTRAM<span class="dot"></span> <span style="font-size: 0.9rem; color: var(--color-accent); font-weight: 700;">OPS CENTER</span></a>
     </div>
     <div style="display: flex; gap: 10px;">
       <a href="shop.html" class="btn btn-outline btn-sm">VIEW SHOP</a>
@@ -307,7 +307,7 @@
         <div>
           <h1 style="font-size: 1.8rem; font-weight: 900; margin-bottom: 4px;">POD Automation & Dispatch Engine</h1>
           <p style="color: var(--color-charcoal-muted); font-size: 0.92rem;">
-            Real-time synchronization between KRAAL orders and Qikink Print-on-Demand production.
+            Real-time synchronization between TRIVASTRAM orders and Qikink Print-on-Demand production.
           </p>
         </div>
       </div>
@@ -363,7 +363,7 @@
                   <th>Customer</th>
                   <th>Total</th>
                   <th>Payment</th>
-                  <th>KRAAL Status</th>
+                  <th>TRIVASTRAM Status</th>
                   <th>Qikink ID / POD</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
@@ -973,7 +973,7 @@
               `Please execute the updated 'supabase_setup.sql' in your Supabase SQL Editor to allow status updates.`
             );
           } else if (qikinkRes.already_exists) {
-            alert(`ℹ️ Order ${order.order_number} is already in the Qikink system.\nUpdated status in KRAAL to: PUSHED_TO_QIKINK / IN_PRODUCTION.`);
+            alert(`ℹ️ Order ${order.order_number} is already in the Qikink system.\nUpdated status in TRIVASTRAM to: PUSHED_TO_QIKINK / IN_PRODUCTION.`);
           } else {
             alert(`🎉 Order ${order.order_number} successfully pushed to Qikink!\nQikink Order ID: #${qkId}`);
           }

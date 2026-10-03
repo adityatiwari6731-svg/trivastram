@@ -1,5 +1,5 @@
 /**
- * KRAAL STREETWEAR - SUPABASE & QIKINK INTEGRATION CLIENT
+ * TRIVASTRAM STREETWEAR - SUPABASE & QIKINK INTEGRATION CLIENT
  * Handles:
  * 1. Fetching live products synced from Qikink (via Supabase `products` table)
  * 2. Automated checkout order saving & auto-dispatch to Qikink
@@ -59,7 +59,7 @@ async function fetchProductsFromSupabase() {
     }
 
     if (data && data.length > 0) {
-      // Map Supabase rows into KRAAL product format
+      // Map Supabase rows into TRIVASTRAM product format
       return data.map(p => ({
         id: p.id,
         qikinkProductId: p.qikink_product_id,
@@ -155,7 +155,7 @@ async function placeOrderWithBackend(orderData, items) {
     const orderItems = items.map(item => ({
       order_id: order.id,
       product_id: String(item.id || item.product?.id || 'item'),
-      product_name: item.product ? item.product.name : 'KRAAL Streetwear Piece',
+      product_name: item.product ? item.product.name : 'TRIVASTRAM Streetwear Piece',
       size: item.size || 'M',
       quantity: Number(item.quantity) || 1,
       unit_price: Number(item.product ? item.product.price : item.price) || 0,
@@ -210,14 +210,11 @@ async function placeOrderWithBackend(orderData, items) {
 }
 
 /**
- * Dispatch Order to Qikink Open API via KRAAL Server Bridge (Bypasses browser CORS & protects secret)
+ * Dispatch Order to Qikink Open API via TRIVASTRAM Server Bridge (Bypasses browser CORS & protects secret)
  */
 async function pushOrderToQikinkAPI(order, lineItems, options = {}) {
-  // Determine bridge endpoint (relative if on localhost:3000, otherwise http://localhost:3000)
-  const isHostedOnLocalPort = window.location.port === '3000' || window.location.origin.includes(':3000');
-  const bridgeUrl = isHostedOnLocalPort 
-    ? '/api/qikink/push-order' 
-    : 'http://localhost:3000/api/qikink/push-order';
+  // Use relative bridge endpoint to work across localhost, remote preview domains, and production
+  const bridgeUrl = '/api/qikink/push-order';
 
   try {
     const res = await fetch(bridgeUrl, {
@@ -241,7 +238,7 @@ async function pushOrderToQikinkAPI(order, lineItems, options = {}) {
   } catch (fetchErr) {
     if (fetchErr.message && fetchErr.message.includes('Failed to fetch')) {
       throw new Error(
-        "KRAAL POD Server Bridge is not running.\n\nPlease start the server by double-clicking 'start-server.bat' in your kraal folder (or run 'node server.js')."
+        "TRIVASTRAM POD Server Bridge is not running.\n\nPlease start the server by double-clicking 'start-server.bat' in your trivastram folder (or run 'node server.js')."
       );
     }
     throw fetchErr;
@@ -268,7 +265,7 @@ async function getOrderByNumber(orderNumber) {
   return data;
 }
 
-window.kraalSupabase = {
+window.trivastramSupabase = {
   getSupabaseClient,
   isSupabaseConfigured,
   fetchProductsFromSupabase,
@@ -276,3 +273,5 @@ window.kraalSupabase = {
   placeOrderWithBackend,
   getOrderByNumber
 };
+window.kraalSupabase = window.trivastramSupabase;
+

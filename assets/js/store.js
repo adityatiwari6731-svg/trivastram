@@ -1,5 +1,5 @@
 /**
- * KRAAL STREETWEAR - GLOBAL STATE & LOCALSTORAGE MANAGER
+ * TRIVASTRAM STREETWEAR - GLOBAL STATE & LOCALSTORAGE MANAGER
  * Manages Cart, Wishlist, Coupons, and UI synchronization.
  */
 
@@ -24,7 +24,7 @@ function getWishlist() {
     const raw = localStorage.getItem(STORAGE_KEYS.WISHLIST);
     let list = raw ? JSON.parse(raw) : [];
     if (Array.isArray(list)) {
-      const cleaned = list.filter(id => !String(id).startsWith('kraal-'));
+      const cleaned = list.filter(id => !String(id).startsWith('trivastram-'));
       if (cleaned.length !== list.length) {
         localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(cleaned));
         return cleaned;
@@ -52,7 +52,7 @@ function toggleWishlist(productId) {
     added = true;
   }
   localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(list));
-  window.dispatchEvent(new CustomEvent('kraal:wishlist-updated', { detail: { list, added, productId } }));
+  window.dispatchEvent(new CustomEvent('trivastram:wishlist-updated', { detail: { list, added, productId } }));
   
   const product = getProductById(productId);
   const title = product ? product.name : 'Item';
@@ -70,7 +70,7 @@ function getCart() {
     const raw = localStorage.getItem(STORAGE_KEYS.CART);
     let cart = raw ? JSON.parse(raw) : [];
     if (Array.isArray(cart)) {
-      const cleaned = cart.filter(item => item && !String(item.id).startsWith('kraal-'));
+      const cleaned = cart.filter(item => item && !String(item.id).startsWith('trivastram-'));
       if (cleaned.length !== cart.length) {
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cleaned));
         return cleaned;
@@ -84,7 +84,7 @@ function getCart() {
 
 function saveCart(cart) {
   localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-  window.dispatchEvent(new CustomEvent('kraal:cart-updated', { detail: { cart } }));
+  window.dispatchEvent(new CustomEvent('trivastram:cart-updated', { detail: { cart } }));
 }
 
 function addToCart(productId, size = 'M', quantity = 1) {
@@ -222,13 +222,13 @@ function applyCoupon(code) {
   }
 
   localStorage.setItem(STORAGE_KEYS.COUPON, cleanCode);
-  window.dispatchEvent(new CustomEvent('kraal:coupon-updated', { detail: { code: cleanCode } }));
+  window.dispatchEvent(new CustomEvent('trivastram:coupon-updated', { detail: { code: cleanCode } }));
   return { success: true, message: `Coupon ${cleanCode} applied successfully!` };
 }
 
 function removeCoupon() {
   localStorage.removeItem(STORAGE_KEYS.COUPON);
-  window.dispatchEvent(new CustomEvent('kraal:coupon-updated', { detail: { code: null } }));
+  window.dispatchEvent(new CustomEvent('trivastram:coupon-updated', { detail: { code: null } }));
   showToast('Coupon removed', 'info');
 }
 
@@ -267,3 +267,73 @@ function showToast(message, type = 'default') {
     setTimeout(() => toast.remove(), 300);
   }, 3200);
 }
+
+// --- Place Order Checkout Pipeline ---
+async function placeOrder(customer, paymentMethod) {
+  const calcs = getCartCalculations();
+  const orderNumber = `KR_${Math.floor(100000 + Math.random() * 900000)}`;
+
+  const orderData = {
+    order_number: orderNumber,
+    customer_name: customer.name,
+    customer_phone: customer.phone,
+    customer_email: customer.email || 'orders@trivastramstreetwear.com',
+    shipping_address: customer.address,
+    landmark: customer.landmark || '',
+    city: customer.city,
+    pincode: customer.pincode,
+    payment_method: paymentMethod || 'cod',
+    subtotal: calcs.totalSellingPrice,
+    discount: calcs.couponDiscount || 0,
+    shipping_fee: calcs.shippingFee,
+    grand_total: calcs.grandTotal,
+    status: 'placed'
+  };
+
+  let result = null;
+  try {
+    if (window.kraalSupabase && window.kraalSupabase.placeOrderWithBackend) {
+      result = await window.kraalSupabase.placeOrderWithBackend(orderData, calcs.items);
+    }
+  } catch (backendErr) {
+    console.warn("Backend order submission error, falling back to local order:", backendErr);
+  }
+
+  if (!result) {
+    result = {
+      success: true,
+      mode: 'mock',
+      orderNumber: orderNumber,
+      orderId: 'ord_' + Date.now()
+    };
+  }
+
+  // Store in localStorage local order history so track.html can display it immediately
+  try {
+    const localOrders = JSON.parse(localStorage.getItem('trivastram_local_orders') || localStorage.getItem('kraal_local_orders') || '[]');
+    localOrders.unshift({
+      ...orderData,
+      id: result.orderId || orderNumber,
+      created_at: new Date().toISOString(),
+      order_items: calcs.items.map(item => ({
+        product_name: item.product ? item.product.name : 'TRIVASTRAM Streetwear Piece',
+        size: item.size || 'M',
+        quantity: item.quantity || 1,
+        unit_price: item.product ? item.product.price : 699,
+        subtotal: item.subtotalSelling || (item.product ? item.product.price * item.quantity : 699)
+      }))
+    });
+    localStorage.setItem('trivastram_local_orders', JSON.stringify(localOrders.slice(0, 30)));
+    localStorage.setItem('kraal_local_orders', JSON.stringify(localOrders.slice(0, 30)));
+  } catch (storageErr) {
+    console.warn("Could not cache order to localStorage:", storageErr);
+  }
+
+
+  return {
+    ...result,
+    orderNumber: result.orderNumber || orderNumber,
+    grandTotal: calcs.grandTotal
+  };
+}
+

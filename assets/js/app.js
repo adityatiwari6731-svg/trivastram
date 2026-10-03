@@ -1,5 +1,5 @@
 /**
- * KRAAL STREETWEAR - APP & UI CONTROLLER
+ * TRIVASTRAM STREETWEAR - APP & UI CONTROLLER
  * Controls Header, Live Search, Slide-Out Bag Drawer, Product Cards, Mobile Nav.
  */
 
@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
   highlightActiveNav();
 
   // Listen to state changes
-  window.addEventListener('kraal:cart-updated', () => {
+  window.addEventListener('trivastram:cart-updated', () => {
     updateHeaderBadges();
     renderCartDrawerContent();
   });
 
-  window.addEventListener('kraal:wishlist-updated', (e) => {
+  window.addEventListener('trivastram:wishlist-updated', (e) => {
     updateHeaderBadges();
     updateWishlistIcons(e.detail.productId, e.detail.added);
   });
 
-  window.addEventListener('kraal:coupon-updated', () => {
+  window.addEventListener('trivastram:coupon-updated', () => {
     renderCartDrawerContent();
   });
 });
@@ -310,7 +310,7 @@ function renderProductCard(product) {
           <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
         </a>
         <div class="card-top-badges">
-          <span class="card-badge ${product.badgeType || 'badge-neon'}">${product.badge || 'DROP 01'}</span>
+          <span class="card-badge ${product.badgeType || 'badge-neon'}">${product.badge || 'COLLECTION'}</span>
         </div>
         <button class="card-wishlist-btn wishlist-btn ${heartClass}" onclick="handleWishlistClick(event, '${product.id}')" aria-label="Save to Wishlist" title="Save to Wishlist">
           <svg viewBox="0 0 24 24" fill="${isWished ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

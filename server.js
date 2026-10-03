@@ -1,5 +1,5 @@
 // ==============================================================================
-// KRAAL STREETWEAR - LOCAL DEV SERVER & QIKINK POD DISPATCH BRIDGE
+// TRIVASTRAM STREETWEAR - LOCAL DEV SERVER & QIKINK POD DISPATCH BRIDGE
 // Zero dependencies (Pure Node.js built-in modules)
 // ==============================================================================
 
@@ -13,9 +13,9 @@ const ROOT_DIR = __dirname;
 
 // Qikink Configuration
 const QIKINK_CONFIG = {
-  CLIENT_ID: "945377554359654",
-  CLIENT_SECRET: "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8",
-  ENV: "sandbox" // "sandbox" or "live"
+  CLIENT_ID: process.env.QIKINK_CLIENT_ID || "945377554359654",
+  CLIENT_SECRET: process.env.QIKINK_CLIENT_SECRET || "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8",
+  ENV: process.env.QIKINK_ENV || "sandbox" // "sandbox" or "live"
 };
 
 const QIKINK_BASE_URL = QIKINK_CONFIG.ENV === 'live' 
@@ -149,7 +149,7 @@ async function handleQikinkPushOrder(req, res) {
           address1: String(order.shipping_address || "Street Address").slice(0, 90),
           address2: order.landmark ? String(order.landmark).slice(0, 90) : "",
           phone: String(order.customer_phone || "9876543210").replace(/[^0-9]/g, '').slice(0, 10),
-          email: order.customer_email || "orders@kraalstreetwear.com",
+          email: order.customer_email || "orders@trivastramstreetwear.com",
           city: order.city || "Delhi",
           zip: Number(String(order.pincode || "110001").replace(/[^0-9]/g, '')) || 110001,
           province: "Delhi",
@@ -252,7 +252,7 @@ const server = http.createServer((req, res) => {
   // --- API Routes ---
   if (pathname === '/api/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', server: 'KRAAL POD Bridge', qikinkEnv: QIKINK_CONFIG.ENV }));
+    res.end(JSON.stringify({ status: 'ok', server: 'TRIVASTRAM POD Bridge', qikinkEnv: QIKINK_CONFIG.ENV }));
     return;
   }
 
@@ -276,8 +276,27 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
+      // Check if appending .html matches a file
+      const htmlPath = filePath + '.html';
+      fs.stat(htmlPath, (htmlErr, htmlStats) => {
+        if (!htmlErr && htmlStats.isFile()) {
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+          fs.createReadStream(htmlPath).pipe(res);
+          return;
+        }
+
+        // Fallback to 404.html
+        const notFoundPath = path.join(ROOT_DIR, '404.html');
+        fs.readFile(notFoundPath, (e404, data404) => {
+          if (!e404) {
+            res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
+            res.end(data404);
+          } else {
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('404 Not Found');
+          }
+        });
+      });
       return;
     }
 
@@ -289,9 +308,9 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`=======================================================`);
-  console.log(`⚡ KRAAL STREETWEAR OPS SERVER & QIKINK POD BRIDGE IS LIVE!`);
+  console.log(`⚡ TRIVASTRAM STREETWEAR OPS SERVER & QIKINK POD BRIDGE IS LIVE!`);
   console.log(`🌐 Local URL:  http://localhost:${PORT}`);
   console.log(`👑 Admin App:  http://localhost:${PORT}/admin.html`);
   console.log(`🛍️ Shop:       http://localhost:${PORT}/shop.html`);

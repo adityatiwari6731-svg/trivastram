@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Bag | KRAAL Streetwear</title>
-  <meta name="description" content="Review items in your KRAAL shopping bag, apply streetwear promo coupons, and proceed to secure checkout.">
+  <title>Shopping Bag | TRIVASTRAM Streetwear</title>
+  <meta name="description" content="Review items in your TRIVASTRAM shopping bag, apply streetwear promo coupons, and proceed to secure checkout.">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
   <div class="announcement-bar">
     <div class="ticker-track">
       <div class="ticker-item">
-        <span>⚡ DROP 01: BUILT FOR RESTLESS MINDS</span>
+        <span>⚡ BUILT FOR RESTLESS MINDS</span>
         <span class="badge-code">DROP LIVE</span>
         <span>FREE SHIPPING ON ALL ORDERS OVER ₹999</span>
         <span>✦</span>
@@ -29,13 +29,13 @@
   <div class="header-sticky-wrapper">
     <header class="main-header container">
       <div class="header-left">
-        <a href="index.html" class="brand-logo" aria-label="KRAAL Home">
-          KRAAL<span class="dot"></span>
+        <a href="index.html" class="brand-logo" aria-label="TRIVASTRAM Home">
+          TRIVASTRAM<span class="dot"></span>
         </a>
 
         <nav class="header-nav">
-          <a href="shop.html?collection=drop-01" class="nav-link">
-            DROP 01 <span class="nav-badge-pill">NEW</span>
+          <a href="shop.html" class="nav-link">
+            COLLECTION <span class="nav-badge-pill">NEW</span>
           </a>
           <a href="shop.html" class="nav-link">SHOP ALL</a>
           <a href="shop.html?cat=oversized-tees" class="nav-link">TEES</a>
@@ -98,7 +98,7 @@
         <div id="cartEmptyState" style="display:none; text-align:center; padding: 60px 20px; background:var(--color-surface); border-radius:var(--radius-md);">
           <h3 style="font-size: 1.6rem; margin-bottom: 8px;">YOUR BAG IS EMPTY</h3>
           <p style="color: var(--color-charcoal-muted); max-width: 420px; margin: 0 auto 24px;">
-            Don't let limited edition Drop 01 pieces sell out. Explore our heavyweight oversized tees and parachute cargos.
+            Don't let limited edition pieces sell out. Explore our heavyweight oversized tees and parachute cargos.
           </p>
           <a href="shop.html" class="btn btn-primary btn-lg">EXPLORE DROPS ↗</a>
         </div>
@@ -166,7 +166,7 @@
   <footer class="main-footer">
     <div class="container">
       <div class="footer-bottom-bar">
-        <div>&copy; 2026 KRAAL STREETWEAR. ALL RIGHTS RESERVED.</div>
+        <div>&copy; 2026 TRIVASTRAM STREETWEAR. ALL RIGHTS RESERVED.</div>
       </div>
     </div>
   </footer>
@@ -185,7 +185,7 @@
       renderCartPage();
     });
 
-    window.addEventListener('kraal:cart-updated', () => {
+    window.addEventListener('trivastram:cart-updated', () => {
       renderCartPage();
     });
 
