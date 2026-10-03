@@ -2228,6 +2228,237 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
+/* ==========================================================================
+   ENHANCED MOBILE OPTIMIZATION & RESPONSIVENESS (iOS, Android, Small Screens)
+   ========================================================================== */
+
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 768px) {
+  /* Announcement ticker sizing */
+  .announcement-bar {
+    height: 32px;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    padding: 0 10px;
+  }
+  .announcement-bar .ticker-track {
+    gap: 20px;
+    animation-duration: 18s;
+  }
+
+  /* Header adjustments */
+  .main-header {
+    height: 58px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .brand-logo {
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+  }
+  .brand-logo .dot {
+    width: 6px;
+    height: 6px;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .header-action-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .header-action-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 16px 0 10px;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+    line-height: 1.0;
+    margin-bottom: 14px;
+  }
+  .hero-subtext {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-visual-card {
+    height: 280px;
+    border-radius: var(--radius-md);
+  }
+  .hero-visual-badge {
+    bottom: 12px;
+    left: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Streetwear Product Grid: 2-column mobile cards */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .product-card {
+    border-radius: var(--radius-sm);
+  }
+  .product-card-body {
+    padding: 10px;
+  }
+  .card-category-label {
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 0.82rem;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .card-price-row {
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .price-current, .card-current-price {
+    font-size: 0.92rem !important;
+  }
+  .price-original, .card-mrp {
+    font-size: 0.75rem !important;
+  }
+  .card-discount-badge {
+    font-size: 0.62rem !important;
+    padding: 2px 4px !important;
+  }
+  /* Mobile touch friendly quick-add */
+  .card-quick-add {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    padding: 6px !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%) !important;
+  }
+  .quick-size-btn {
+    font-size: 0.65rem !important;
+    padding: 4px 0 !important;
+  }
+  .card-wishlist-btn {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+  }
+  .card-wishlist-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Cart slideout on mobile full screen */
+  .cart-drawer {
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* Mobile Bottom Navigation Bar */
+  .mobile-bottom-nav {
+    display: flex !important;
+    height: 60px !important;
+    padding: 0 4px !important;
+    background: #0A0A0A !important;
+    border-top: 1px solid #27272A !important;
+  }
+  .mobile-nav-item {
+    color: #A1A1AA !important;
+    font-size: 0.62rem !important;
+    flex: 1;
+    text-align: center;
+  }
+  .mobile-nav-item.active {
+    color: var(--color-accent) !important;
+  }
+  .mobile-nav-item.active svg {
+    stroke: var(--color-accent) !important;
+  }
+  .mobile-nav-item svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* Footer on mobile */
+  .footer-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  .footer-bottom-bar {
+    padding-bottom: 20px;
+    font-size: 0.75rem;
+  }
+
+  /* Admin Dashboard Mobile Responsiveness */
+  .admin-dashboard {
+    padding: 16px 0 80px !important;
+  }
+  .admin-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .admin-header > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .admin-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .admin-tabs-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+  .admin-tab-btn {
+    font-size: 0.78rem !important;
+    padding: 8px 12px !important;
+  }
+  .admin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .admin-card {
+    padding: 16px !important;
+    border-radius: var(--radius-md) !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .modal-content {
+    padding: 18px !important;
+    max-height: 95vh !important;
+    width: 95vw !important;
+  }
+}
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2338,10 +2569,1139 @@ h1, h2, h3, h4, h5, h6 {
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/assets/js/supabaseClient.js"></script>
-  <script src="/assets/js/products.js"></script>
-  <script src="/assets/js/store.js"></script>
-  <script src="/assets/js/app.js"></script>
+<script id="inline-core-bundle">
+// 1. SUPABASE CLIENT
+/**
+ * TRIVASTRAM STREETWEAR - SUPABASE & QIKINK INTEGRATION CLIENT
+ * Handles:
+ * 1. Fetching live products synced from Qikink (via Supabase `products` table)
+ * 2. Automated checkout order saving & auto-dispatch to Qikink
+ * 3. Real-time order tracking & AWB courier sync
+ */
+
+const KRAAL_SUPABASE_CONFIG = {
+  URL: "https://fbhhuugexwgsgcgwmypi.supabase.co",
+  ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZiaGh1dWdleHdnc2djZ3dteXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwMDg4NzAsImV4cCI6MjEwNTU4NDg3MH0.-loawnEmOpBzhArmgCZp3tM7mRYilHPkXkoesiKisAE"
+};
+
+const KRAAL_QIKINK_CONFIG = {
+  CLIENT_ID: "945377554359654",
+  CLIENT_SECRET: "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8",
+  ENV: "sandbox"     // "sandbox" for testing, "live" for production
+};
+
+let supabaseClient = null;
+
+// Initialize Supabase Client
+function getSupabaseClient() {
+  if (supabaseClient) return supabaseClient;
+  
+  if (typeof window.supabase !== 'undefined' && 
+      KRAAL_SUPABASE_CONFIG.URL !== "https://YOUR_SUPABASE_PROJECT_ID.supabase.co" &&
+      KRAAL_SUPABASE_CONFIG.ANON_KEY !== "YOUR_SUPABASE_ANON_PUBLIC_KEY") {
+    supabaseClient = window.supabase.createClient(
+      KRAAL_SUPABASE_CONFIG.URL, 
+      KRAAL_SUPABASE_CONFIG.ANON_KEY
+    );
+  }
+  return supabaseClient;
+}
+
+function isSupabaseConfigured() {
+  return KRAAL_SUPABASE_CONFIG.URL !== "https://YOUR_SUPABASE_PROJECT_ID.supabase.co" &&
+         KRAAL_SUPABASE_CONFIG.ANON_KEY !== "YOUR_SUPABASE_ANON_PUBLIC_KEY";
+}
+
+/**
+ * Fetch all active products synced from Qikink in Supabase
+ */
+async function fetchProductsFromSupabase() {
+  const client = getSupabaseClient();
+  if (!client) return null;
+
+  try {
+    const { data, error } = await client
+      .from('products')
+      .select('*, product_variants(*)')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.warn("Could not fetch products from Supabase:", error);
+      return null;
+    }
+
+    if (data && data.length > 0) {
+      // Map Supabase rows into TRIVASTRAM product format
+      return data.map(p => ({
+        id: p.id,
+        qikinkProductId: p.qikink_product_id,
+        name: p.name,
+        category: p.category || 'oversized-tees',
+        categoryLabel: p.category_label || 'Oversized Tees',
+        price: Number(p.price),
+        mrp: Number(p.mrp),
+        discount: p.mrp > p.price ? Math.round(((p.mrp - p.price) / p.mrp) * 100) + "% OFF" : "BEST VALUE",
+        rating: 4.8,
+        reviewsCount: 120,
+        badge: p.badge || "NEW DROP",
+        badgeType: "badge-primary",
+        fit: p.fit || "Oversized Fit",
+        gsm: p.gsm || "Heavyweight Cotton",
+        color: (p.colors && p.colors[0]) || "Charcoal",
+        sizes: p.sizes || ["S", "M", "L", "XL", "XXL"],
+        images: p.images && p.images.length > 0 ? p.images : ["https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80"],
+        description: p.description || "",
+        specs: {
+          "Fit": p.fit || "Super Oversized Drop-Shoulder",
+          "Fabric": "100% Combed Heavy Cotton",
+          "Fulfillment": "Direct Print on Demand via Qikink",
+          "Wash Care": "Machine wash cold inside out, do not iron on print"
+        },
+        featured: p.featured,
+        variants: p.product_variants || []
+      }));
+    }
+    return null;
+  } catch (err) {
+    console.error("Error in fetchProductsFromSupabase:", err);
+    return null;
+  }
+}
+
+/**
+ * Manually trigger Qikink Product Sync via Edge Function
+ */
+async function syncProductsFromQikink() {
+  const client = getSupabaseClient();
+  if (!client) {
+    alert("Please configure your Supabase credentials in assets/js/supabaseClient.js first.");
+    return false;
+  }
+
+  try {
+    const res = await client.functions.invoke('sync-products');
+    console.log("Qikink sync response:", res);
+    return res.data;
+  } catch (err) {
+    console.error("Failed to trigger product sync:", err);
+    throw err;
+  }
+}
+
+/**
+ * Saves a completed checkout order to Supabase & triggers auto-push to Qikink
+ */
+async function placeOrderWithBackend(orderData, items) {
+  const client = getSupabaseClient();
+
+  if (!client) {
+    console.warn("⚠️ Supabase credentials not configured yet. Running in demo mode.");
+    return {
+      success: true,
+      mode: 'mock',
+      orderNumber: orderData.order_number,
+      orderId: 'mock-' + Date.now()
+    };
+  }
+
+  try {
+    // Sanitize numeric fields to avoid constraint violations
+    orderData.subtotal = Number(orderData.subtotal || orderData.grand_total || 0);
+    orderData.grand_total = Number(orderData.grand_total || 0);
+    orderData.discount = Number(orderData.discount || 0);
+    orderData.shipping_fee = Number(orderData.shipping_fee || 0);
+
+    // 1. Insert into public.orders table
+    const { data: order, error: orderErr } = await client
+      .from('orders')
+      .insert([orderData])
+      .select()
+      .single();
+
+    if (orderErr) {
+      console.error("Error creating order record in Supabase:", orderErr);
+      throw new Error(orderErr.message || "Database insert error: " + JSON.stringify(orderErr));
+    }
+
+    // 2. Insert line items
+    const orderItems = items.map(item => ({
+      order_id: order.id,
+      product_id: String(item.id || item.product?.id || 'item'),
+      product_name: item.product ? item.product.name : 'TRIVASTRAM Streetwear Piece',
+      size: item.size || 'M',
+      quantity: Number(item.quantity) || 1,
+      unit_price: Number(item.product ? item.product.price : item.price) || 0,
+      subtotal: Number(item.subtotalSelling || (item.product ? item.product.price * item.quantity : 0)),
+      qikink_sku: item.product?.qikinkSku || (item.product?.variants && item.product.variants.find(v => v.size === item.size)?.qikink_sku) || null,
+      design_front_url: item.product?.designFrontUrl || null,
+      design_back_url: item.product?.designBackUrl || null
+    }));
+
+    const { error: itemsErr } = await client
+      .from('order_items')
+      .insert(orderItems);
+
+    if (itemsErr) {
+      console.error("Error saving order items:", itemsErr);
+    }
+
+    // 3. AUTOMATICALLY PUSH TO QIKINK
+    if (KRAAL_QIKINK_CONFIG.CLIENT_ID && KRAAL_QIKINK_CONFIG.CLIENT_SECRET) {
+      try {
+        const qikinkRes = await pushOrderToQikinkAPI(order, orderItems);
+        console.log("⚡ Qikink API Dispatch Response:", qikinkRes);
+
+        if (qikinkRes && (qikinkRes.order_id || qikinkRes.status_code === "200")) {
+          const qikinkId = String(qikinkRes.order_id || '');
+          await client.from('orders').update({
+            qikink_order_id: qikinkId,
+            qikink_status: 'in_production',
+            status: 'pushed_to_qikink',
+            updated_at: new Date().toISOString()
+          }).eq('id', order.id);
+          console.log("✅ Order successfully synced to Qikink POD! ID:", qikinkId);
+        }
+      } catch (podErr) {
+        console.warn("Qikink auto-dispatch notification:", podErr);
+      }
+    } else {
+      console.log("ℹ️ Add your Qikink Client Secret in assets/js/supabaseClient.js to auto-send orders to Qikink.");
+    }
+
+    return {
+      success: true,
+      mode: 'live',
+      orderNumber: order.order_number,
+      orderId: order.id
+    };
+
+  } catch (error) {
+    console.error("Order placement failed:", error);
+    throw error;
+  }
+}
+
+/**
+ * Dispatch Order to Qikink Open API via TRIVASTRAM Server Bridge (Bypasses browser CORS & protects secret)
+ */
+async function pushOrderToQikinkAPI(order, lineItems, options = {}) {
+  // Use relative bridge endpoint to work across localhost, remote preview domains, and production
+  const bridgeUrl = '/api/qikink/push-order';
+
+  try {
+    const res = await fetch(bridgeUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        order, 
+        lineItems,
+        forceNewDispatch: !!options.forceNewDispatch
+      })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok && !data.already_exists) {
+      throw new Error(data.error || data.message || `Server error (${res.status})`);
+    }
+
+    return data;
+
+  } catch (fetchErr) {
+    if (fetchErr.message && fetchErr.message.includes('Failed to fetch')) {
+      throw new Error(
+        "TRIVASTRAM POD Server Bridge is not running.\n\nPlease start the server by double-clicking 'start-server.bat' in your trivastram folder (or run 'node server.js')."
+      );
+    }
+    throw fetchErr;
+  }
+}
+
+/**
+ * Fetch an order for tracking status
+ */
+async function getOrderByNumber(orderNumber) {
+  const client = getSupabaseClient();
+  if (!client) return null;
+
+  const { data, error } = await client
+    .from('orders')
+    .select('*, order_items(*)')
+    .eq('order_number', orderNumber.trim())
+    .single();
+
+  if (error) {
+    console.error("Failed to fetch order:", error);
+    return null;
+  }
+  return data;
+}
+
+window.trivastramSupabase = {
+  getSupabaseClient,
+  isSupabaseConfigured,
+  fetchProductsFromSupabase,
+  syncProductsFromQikink,
+  placeOrderWithBackend,
+  getOrderByNumber
+};
+window.kraalSupabase = window.trivastramSupabase;
+
+
+
+// 2. PRODUCTS
+/**
+ * TRIVASTRAM STREETWEAR - PRODUCT CATALOG DATASET
+ * Built for Restless Minds | Streetwear
+ * 100% Authentic Live Products Synced with Supabase & Qikink POD.
+ * All fake/mock products removed.
+ */
+
+// Primary real catalog synced with Qikink & Supabase
+const REAL_STORE_PRODUCTS = [
+  {
+    id: "04665e69-206d-4972-b2ca-a276b746a9bb",
+    qikinkProductId: "UOSsMRnHs-Bk-XS",
+    qikinkSku: "UOSsMRnHs-Bk-XS",
+    name: "Unisex Oversized Standard T-Shirt",
+    category: "oversized-tees",
+    categoryLabel: "Oversized Tees",
+    collection: "Streetwear",
+    price: 699,
+    mrp: 1000,
+    discount: "30% OFF",
+    rating: 4.9,
+    reviewsCount: 148,
+    badge: "BESTSELLER",
+    badgeType: "badge-neon",
+    fit: "Oversized Boxy Fit",
+    gsm: "Heavyweight Combed Cotton",
+    color: "Black",
+    colors: ["Black", "Charcoal"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    images: [
+      "https://qikink-assets.s3.ap-south-1.amazonaws.com/clients/645759/clientProducts/32397189/images/Front_1_c_3.jpg"
+    ],
+    description: "Authentic streetwear flagship piece. Unisex Oversized Heavyweight Cotton T-Shirt. High density DTF screen print on heavyweight combed cotton with authentic dropped shoulder silhouette and durable ribbed collar. Fulfilled on-demand via Qikink POD.",
+    specs: {
+      "Fit": "Boxy Drop-Shoulder Oversized",
+      "Fabric": "100% Combed Heavy Cotton",
+      "Print": "DTF High-Density Screen Print",
+      "Fulfillment": "Direct Print on Demand via Qikink",
+      "Wash Care": "Machine wash cold inside out, do not iron directly on print"
+    },
+    featured: true,
+    trending: true,
+    bestseller: true
+  }
+];
+
+// Load cached live products from localStorage or fall back to verified real products
+function getInitialCatalog() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const cached = localStorage.getItem('kraal_cached_products');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        // Purge any old fake product traces from cache
+        const hasFakes = Array.isArray(parsed) && parsed.some(p => 
+          p.id === 'trivastram-too-many-thoughts' || 
+          p.id === 'trivastram-acid-wash-cyber-tee' ||
+          p.id === 'trivastram-overthinker-boxy-hoodie' ||
+          p.id === 'trivastram-tactical-parachute-cargo'
+        );
+        if (hasFakes) {
+          localStorage.removeItem('kraal_cached_products');
+        } else if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Could not read cached products:", e);
+  }
+  return REAL_STORE_PRODUCTS;
+}
+
+let TRIVASTRAM_PRODUCTS = getInitialCatalog();
+let KRAAL_PRODUCTS = TRIVASTRAM_PRODUCTS; // Backwards compatibility
+
+
+// Helper functions for filtering and lookup
+function getProductById(id) {
+  if (!id) return null;
+  const found = KRAAL_PRODUCTS.find(item => 
+    String(item.id) === String(id) || 
+    String(item.qikinkProductId) === String(id) ||
+    String(item.qikinkSku) === String(id)
+  );
+  // If an old fake ID was requested, gracefully fallback to the primary real drop
+  if (!found && KRAAL_PRODUCTS.length > 0 && String(id).startsWith('trivastram-')) {
+    return KRAAL_PRODUCTS[0];
+  }
+  return found || null;
+}
+
+function getProductsByCategory(category) {
+  if (!category || category === "all") return KRAAL_PRODUCTS;
+  return KRAAL_PRODUCTS.filter(item => item.category === category);
+}
+
+function searchProducts(query) {
+  if (!query) return [];
+  const q = query.toLowerCase().trim();
+  return KRAAL_PRODUCTS.filter(item =>
+    item.name.toLowerCase().includes(q) ||
+    (item.categoryLabel && item.categoryLabel.toLowerCase().includes(q)) ||
+    (item.fit && item.fit.toLowerCase().includes(q)) ||
+    (item.color && item.color.toLowerCase().includes(q)) ||
+    (item.collection && item.collection.toLowerCase().includes(q))
+  );
+}
+
+// Automatically sync live products from Supabase (synced from Qikink)
+async function loadLiveCatalogFromSupabase() {
+  if (typeof window !== 'undefined' && window.kraalSupabase && window.kraalSupabase.isSupabaseConfigured()) {
+    try {
+      const liveItems = await window.kraalSupabase.fetchProductsFromSupabase();
+      if (liveItems && liveItems.length > 0) {
+        // ONLY use authentic products from Supabase - NO fake padding!
+        KRAAL_PRODUCTS = liveItems;
+        try {
+          localStorage.setItem('kraal_cached_products', JSON.stringify(KRAAL_PRODUCTS));
+        } catch (_) {}
+        console.log("🔥 Loaded " + KRAAL_PRODUCTS.length + " real drop(s) from Supabase/Qikink!");
+        window.dispatchEvent(new CustomEvent('trivastram:products-updated', { detail: { products: KRAAL_PRODUCTS } }));
+      }
+    } catch (e) {
+      console.warn("Using verified real catalog fallback:", e);
+    }
+  }
+  return KRAAL_PRODUCTS;
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    loadLiveCatalogFromSupabase();
+  });
+}
+
+
+// 3. STORE STATE
+/**
+ * TRIVASTRAM STREETWEAR - GLOBAL STATE & LOCALSTORAGE MANAGER
+ * Manages Cart, Wishlist, Coupons, and UI synchronization.
+ */
+
+const STORAGE_KEYS = {
+  CART: 'kraal_cart_items',
+  WISHLIST: 'kraal_wishlist_ids',
+  COUPON: 'kraal_applied_coupon',
+  RECENT_SEARCH: 'kraal_recent_searches'
+};
+
+const FREE_SHIPPING_THRESHOLD = 999;
+const STANDARD_SHIPPING_FEE = 99;
+
+// Available Promotional Coupons
+const AVAILABLE_COUPONS = {
+  'FIRSTDROP': { type: 'percent', value: 15, minOrder: 1499, description: '15% OFF for new streetwear fans' }
+};
+
+// --- Wishlist Management ---
+function getWishlist() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+    let list = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(list)) {
+      const cleaned = list.filter(id => !String(id).startsWith('trivastram-'));
+      if (cleaned.length !== list.length) {
+        localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(cleaned));
+        return cleaned;
+      }
+    }
+    return list;
+  } catch (e) {
+    return [];
+  }
+}
+
+function isInWishlist(productId) {
+  const list = getWishlist();
+  return list.includes(productId);
+}
+
+function toggleWishlist(productId) {
+  let list = getWishlist();
+  let added = false;
+  if (list.includes(productId)) {
+    list = list.filter(id => id !== productId);
+    added = false;
+  } else {
+    list.push(productId);
+    added = true;
+  }
+  localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(list));
+  window.dispatchEvent(new CustomEvent('trivastram:wishlist-updated', { detail: { list, added, productId } }));
+  
+  const product = getProductById(productId);
+  const title = product ? product.name : 'Item';
+  if (added) {
+    showToast(`Added "${title}" to Wishlist!`, 'success');
+  } else {
+    showToast(`Removed from Wishlist`, 'info');
+  }
+  return added;
+}
+
+// --- Cart Management ---
+function getCart() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.CART);
+    let cart = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(cart)) {
+      const cleaned = cart.filter(item => item && !String(item.id).startsWith('trivastram-'));
+      if (cleaned.length !== cart.length) {
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cleaned));
+        return cleaned;
+      }
+    }
+    return cart;
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCart(cart) {
+  localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+  window.dispatchEvent(new CustomEvent('trivastram:cart-updated', { detail: { cart } }));
+}
+
+function addToCart(productId, size = 'M', quantity = 1) {
+  const product = getProductById(productId);
+  if (!product) return false;
+
+  let cart = getCart();
+  const existingIndex = cart.findIndex(item => item.id === productId && item.size === size);
+
+  if (existingIndex > -1) {
+    cart[existingIndex].quantity += quantity;
+    cart[existingIndex].product = product;
+  } else {
+    cart.push({
+      id: productId,
+      size: size,
+      quantity: quantity,
+      product: product,
+      addedAt: Date.now()
+    });
+  }
+
+  saveCart(cart);
+  showToast(`Added ${quantity}x "${product.name}" (${size}) to Bag!`, 'success');
+  openCartDrawer();
+  return true;
+}
+
+function updateCartQuantity(productId, size, quantity) {
+  let cart = getCart();
+  if (quantity <= 0) {
+    cart = cart.filter(item => !(item.id === productId && item.size === size));
+  } else {
+    const item = cart.find(item => item.id === productId && item.size === size);
+    if (item) item.quantity = quantity;
+  }
+  saveCart(cart);
+}
+
+function removeFromCart(productId, size) {
+  let cart = getCart();
+  cart = cart.filter(item => !(item.id === productId && item.size === size));
+  saveCart(cart);
+  showToast('Item removed from Bag', 'info');
+}
+
+function clearCart() {
+  saveCart([]);
+}
+
+function getCartCount() {
+  const cart = getCart();
+  return cart.reduce((total, item) => total + item.quantity, 0);
+}
+
+// Detailed cart calculations
+function getCartCalculations() {
+  const cart = getCart();
+  let totalMrp = 0;
+  let totalSellingPrice = 0;
+  let itemsDetailed = [];
+
+  cart.forEach(cartItem => {
+    const product = getProductById(cartItem.id) || cartItem.product;
+    if (product) {
+      const price = Number(product.price) || 0;
+      const mrp = Number(product.mrp || product.price) || price;
+      const qty = Number(cartItem.quantity) || 1;
+      const itemMrp = mrp * qty;
+      const itemSelling = price * qty;
+      totalMrp += itemMrp;
+      totalSellingPrice += itemSelling;
+      itemsDetailed.push({
+        ...cartItem,
+        product,
+        subtotalMrp: itemMrp,
+        subtotalSelling: itemSelling
+      });
+    }
+  });
+
+  const bagDiscount = totalMrp - totalSellingPrice;
+  const appliedCoupon = getAppliedCoupon();
+  let couponDiscount = 0;
+
+  if (appliedCoupon && AVAILABLE_COUPONS[appliedCoupon]) {
+    const coupon = AVAILABLE_COUPONS[appliedCoupon];
+    if (totalSellingPrice >= coupon.minOrder) {
+      if (coupon.type === 'percent') {
+        couponDiscount = Math.round((totalSellingPrice * coupon.value) / 100);
+      } else if (coupon.type === 'flat') {
+        couponDiscount = coupon.value;
+      }
+    }
+  }
+
+  const shippingFee = (totalSellingPrice >= FREE_SHIPPING_THRESHOLD || totalSellingPrice === 0) ? 0 : STANDARD_SHIPPING_FEE;
+  const grandTotal = Math.max(0, totalSellingPrice - couponDiscount + shippingFee);
+  const amountToFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - totalSellingPrice);
+  const freeShippingProgress = Math.min(100, Math.round((totalSellingPrice / FREE_SHIPPING_THRESHOLD) * 100));
+
+  return {
+    items: itemsDetailed,
+    totalMrp,
+    totalSellingPrice,
+    bagDiscount,
+    couponCode: appliedCoupon,
+    couponDiscount,
+    shippingFee,
+    grandTotal,
+    amountToFreeShipping,
+    freeShippingProgress
+  };
+}
+
+// --- Coupon Management ---
+function getAppliedCoupon() {
+  return localStorage.getItem(STORAGE_KEYS.COUPON) || null;
+}
+
+function applyCoupon(code) {
+  const cleanCode = code.toUpperCase().trim();
+  if (!AVAILABLE_COUPONS[cleanCode]) {
+    return { success: false, message: 'Invalid coupon code. Try FIRSTDROP.' };
+  }
+
+  const coupon = AVAILABLE_COUPONS[cleanCode];
+  const { totalSellingPrice } = getCartCalculations();
+
+  if (totalSellingPrice < coupon.minOrder) {
+    return {
+      success: false,
+      message: `Add items worth ₹${coupon.minOrder - totalSellingPrice} more to use ${cleanCode}!`
+    };
+  }
+
+  localStorage.setItem(STORAGE_KEYS.COUPON, cleanCode);
+  window.dispatchEvent(new CustomEvent('trivastram:coupon-updated', { detail: { code: cleanCode } }));
+  return { success: true, message: `Coupon ${cleanCode} applied successfully!` };
+}
+
+function removeCoupon() {
+  localStorage.removeItem(STORAGE_KEYS.COUPON);
+  window.dispatchEvent(new CustomEvent('trivastram:coupon-updated', { detail: { code: null } }));
+  showToast('Coupon removed', 'info');
+}
+
+// --- Currency Formatter ---
+function formatPrice(amount) {
+  return '₹' + Number(amount || 0).toLocaleString('en-IN');
+}
+
+// --- Toast Notifications System ---
+function showToast(message, type = 'default') {
+  let container = document.getElementById('kraalToastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'kraalToastContainer';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  
+  let iconSvg = '';
+  if (type === 'success') {
+    iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CC5500" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+  } else {
+    iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CC5500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+  }
+
+  toast.innerHTML = `${iconSvg}<span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
+}
+
+// --- Place Order Checkout Pipeline ---
+async function placeOrder(customer, paymentMethod) {
+  const calcs = getCartCalculations();
+  const orderNumber = `KR_${Math.floor(100000 + Math.random() * 900000)}`;
+
+  const orderData = {
+    order_number: orderNumber,
+    customer_name: customer.name,
+    customer_phone: customer.phone,
+    customer_email: customer.email || 'orders@trivastramstreetwear.com',
+    shipping_address: customer.address,
+    landmark: customer.landmark || '',
+    city: customer.city,
+    pincode: customer.pincode,
+    payment_method: paymentMethod || 'cod',
+    subtotal: calcs.totalSellingPrice,
+    discount: calcs.couponDiscount || 0,
+    shipping_fee: calcs.shippingFee,
+    grand_total: calcs.grandTotal,
+    status: 'placed'
+  };
+
+  let result = null;
+  try {
+    if (window.kraalSupabase && window.kraalSupabase.placeOrderWithBackend) {
+      result = await window.kraalSupabase.placeOrderWithBackend(orderData, calcs.items);
+    }
+  } catch (backendErr) {
+    console.warn("Backend order submission error, falling back to local order:", backendErr);
+  }
+
+  if (!result) {
+    result = {
+      success: true,
+      mode: 'mock',
+      orderNumber: orderNumber,
+      orderId: 'ord_' + Date.now()
+    };
+  }
+
+  // Store in localStorage local order history so track.html can display it immediately
+  try {
+    const localOrders = JSON.parse(localStorage.getItem('trivastram_local_orders') || localStorage.getItem('kraal_local_orders') || '[]');
+    localOrders.unshift({
+      ...orderData,
+      id: result.orderId || orderNumber,
+      created_at: new Date().toISOString(),
+      order_items: calcs.items.map(item => ({
+        product_name: item.product ? item.product.name : 'TRIVASTRAM Streetwear Piece',
+        size: item.size || 'M',
+        quantity: item.quantity || 1,
+        unit_price: item.product ? item.product.price : 699,
+        subtotal: item.subtotalSelling || (item.product ? item.product.price * item.quantity : 699)
+      }))
+    });
+    localStorage.setItem('trivastram_local_orders', JSON.stringify(localOrders.slice(0, 30)));
+    localStorage.setItem('kraal_local_orders', JSON.stringify(localOrders.slice(0, 30)));
+  } catch (storageErr) {
+    console.warn("Could not cache order to localStorage:", storageErr);
+  }
+
+
+  return {
+    ...result,
+    orderNumber: result.orderNumber || orderNumber,
+    grandTotal: calcs.grandTotal
+  };
+}
+
+
+
+// 4. APP UI CONTROLLER
+/**
+ * TRIVASTRAM STREETWEAR - APP & UI CONTROLLER
+ * Controls Header, Live Search, Slide-Out Bag Drawer, Product Cards, Mobile Nav.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHeader();
+  initCartDrawer();
+  initSearch();
+  updateHeaderBadges();
+  highlightActiveNav();
+
+  // Listen to state changes
+  window.addEventListener('trivastram:cart-updated', () => {
+    updateHeaderBadges();
+    renderCartDrawerContent();
+  });
+
+  window.addEventListener('trivastram:wishlist-updated', (e) => {
+    updateHeaderBadges();
+    updateWishlistIcons(e.detail.productId, e.detail.added);
+  });
+
+  window.addEventListener('trivastram:coupon-updated', () => {
+    renderCartDrawerContent();
+  });
+});
+
+// --- Header Badges ---
+function updateHeaderBadges() {
+  const cartCount = getCartCount();
+  const wishlistCount = getWishlist().length;
+
+  document.querySelectorAll('.cart-badge-count').forEach(el => {
+    el.textContent = cartCount;
+    el.style.display = cartCount > 0 ? 'flex' : 'none';
+  });
+
+  document.querySelectorAll('.wishlist-badge-count').forEach(el => {
+    el.textContent = wishlistCount;
+    el.style.display = wishlistCount > 0 ? 'flex' : 'none';
+  });
+}
+
+// --- Active Nav Highlighting ---
+function highlightActiveNav() {
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.category-nav-item a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && currentPath.endsWith(href)) {
+      link.parentElement.classList.add('active');
+    }
+  });
+
+  document.querySelectorAll('.mobile-nav-item').forEach(item => {
+    const href = item.getAttribute('href');
+    if (href && currentPath.endsWith(href)) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// --- Live Search Functionality ---
+function initSearch() {
+  const searchInput = document.getElementById('globalSearchInput');
+  const searchDropdown = document.getElementById('searchDropdown');
+  const searchForm = document.getElementById('globalSearchForm');
+
+  if (!searchInput || !searchDropdown) return;
+
+  searchInput.addEventListener('input', (e) => {
+    const val = e.target.value.trim();
+    if (val.length < 2) {
+      searchDropdown.classList.remove('show');
+      return;
+    }
+
+    const matches = searchProducts(val).slice(0, 6);
+    if (matches.length === 0) {
+      searchDropdown.innerHTML = `
+        <div class="search-dropdown-header">No streetwear drops found</div>
+        <div class="search-dropdown-item" style="color: var(--color-charcoal-muted); cursor: default;">
+          Try searching "oversized", "hoodie", or "cargo"
+        </div>
+      `;
+    } else {
+      let html = `<div class="search-dropdown-header">Matching Streetwear (${matches.length})</div>`;
+      matches.forEach(item => {
+        html += `
+          <a href="product.html?id=${item.id}" class="search-dropdown-item">
+            <span><strong>${item.name}</strong> <span style="font-size:0.75rem; color:var(--color-charcoal-muted); margin-left:6px;">${item.categoryLabel}</span></span>
+            <span style="font-weight:700; color:var(--color-accent);">${formatPrice(item.price)}</span>
+          </a>
+        `;
+      });
+      searchDropdown.innerHTML = html;
+    }
+    searchDropdown.classList.add('show');
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+      searchDropdown.classList.remove('show');
+    }
+  });
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = searchInput.value.trim();
+      if (val) {
+        window.location.href = `shop.html?search=${encodeURIComponent(val)}`;
+      }
+    });
+  }
+}
+
+// --- Cart Slide-Out Drawer ---
+function initCartDrawer() {
+  // Inject Cart Drawer HTML if not already present
+  if (!document.getElementById('cartDrawer')) {
+    const drawerHtml = `
+      <div id="cartDrawerBackdrop" class="cart-drawer-backdrop" onclick="closeCartDrawer()"></div>
+      <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping Bag">
+        <div class="cart-drawer-header">
+          <div class="cart-drawer-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span>MY STREETWEAR BAG (<span class="drawer-items-count">0</span>)</span>
+          </div>
+          <button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Close Bag">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div id="drawerShippingMeter" class="shipping-meter-box">
+          <!-- Free shipping progress bar dynamically populated -->
+        </div>
+
+        <div id="cartDrawerBody" class="cart-drawer-body">
+          <!-- Cart items list dynamically populated -->
+        </div>
+
+        <div id="cartDrawerFooter" class="cart-drawer-footer">
+          <!-- Subtotal and actions -->
+        </div>
+      </aside>
+    `;
+    document.body.insertAdjacentHTML('beforeend', drawerHtml);
+  }
+
+  // Trigger buttons
+  document.querySelectorAll('.open-cart-trigger').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCartDrawer();
+    });
+  });
+
+  renderCartDrawerContent();
+}
+
+function openCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  const backdrop = document.getElementById('cartDrawerBackdrop');
+  if (drawer && backdrop) {
+    renderCartDrawerContent();
+    drawer.classList.add('open');
+    backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  const backdrop = document.getElementById('cartDrawerBackdrop');
+  if (drawer && backdrop) {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function renderCartDrawerContent() {
+  const body = document.getElementById('cartDrawerBody');
+  const footer = document.getElementById('cartDrawerFooter');
+  const meter = document.getElementById('drawerShippingMeter');
+  const countEl = document.querySelector('.drawer-items-count');
+  if (!body || !footer || !meter) return;
+
+  const calcs = getCartCalculations();
+  if (countEl) countEl.textContent = getCartCount();
+
+  // Free Shipping Meter
+  if (calcs.amountToFreeShipping > 0) {
+    meter.innerHTML = `
+      <div>Add <strong>${formatPrice(calcs.amountToFreeShipping)}</strong> more to get <strong>FREE SHIPPING</strong>!</div>
+      <div class="shipping-progress-bar">
+        <div class="shipping-progress-fill" style="width: ${calcs.freeShippingProgress}%;"></div>
+      </div>
+    `;
+  } else {
+    meter.innerHTML = `
+      <div style="color: var(--color-accent); font-weight: 700; display:flex; align-items:center; gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        YOU UNLOCKED FREE STREETWEAR SHIPPING!
+      </div>
+    `;
+  }
+
+  // Empty state
+  if (calcs.items.length === 0) {
+    body.innerHTML = `
+      <div class="cart-empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <h3>Your Streetwear Bag is Empty</h3>
+        <p>Catch the latest drop before sizes run out.</p>
+        <a href="shop.html" class="btn btn-primary btn-sm" onclick="closeCartDrawer()">EXPLORE DROPS</a>
+      </div>
+    `;
+    footer.innerHTML = `
+      <a href="shop.html" class="btn btn-charcoal btn-block" onclick="closeCartDrawer()">START SHOPPING</a>
+    `;
+    return;
+  }
+
+  // Items List
+  let itemsHtml = '';
+  calcs.items.forEach(item => {
+    itemsHtml += `
+      <div class="cart-drawer-item">
+        <div class="cart-item-img">
+          <img src="${item.product.images[0]}" alt="${item.product.name}" loading="lazy">
+        </div>
+        <div class="cart-item-info">
+          <div>
+            <h4 class="cart-item-title">
+              <a href="product.html?id=${item.product.id}">${item.product.name}</a>
+            </h4>
+            <div class="cart-item-meta">
+              <span class="meta-chip">Size: <strong>${item.size}</strong></span>
+              <span style="text-decoration: line-through; color: var(--color-charcoal-muted);">${formatPrice(item.product.mrp)}</span>
+            </div>
+          </div>
+          <div class="cart-item-controls">
+            <div class="qty-stepper">
+              <button onclick="updateCartQuantity('${item.id}', '${item.size}', ${item.quantity - 1})">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="updateCartQuantity('${item.id}', '${item.size}', ${item.quantity + 1})">+</button>
+            </div>
+            <div class="cart-item-price">${formatPrice(item.subtotalSelling)}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  body.innerHTML = itemsHtml;
+
+  // Footer / Subtotal
+  footer.innerHTML = `
+    <div class="cart-summary-row">
+      <span>Bag Total (MRP)</span>
+      <span>${formatPrice(calcs.totalMrp)}</span>
+    </div>
+    <div class="cart-summary-row" style="color: var(--color-accent); font-weight:600;">
+      <span>Bag Discount</span>
+      <span>-${formatPrice(calcs.bagDiscount)}</span>
+    </div>
+    ${calcs.couponDiscount > 0 ? `
+    <div class="cart-summary-row" style="color: var(--color-accent); font-weight:700;">
+      <span>Coupon (${calcs.couponCode})</span>
+      <span>-${formatPrice(calcs.couponDiscount)}</span>
+    </div>
+    ` : ''}
+    <div class="cart-summary-row">
+      <span>Shipping</span>
+      <span>${calcs.shippingFee === 0 ? '<strong style="color: var(--color-accent)">FREE</strong>' : formatPrice(calcs.shippingFee)}</span>
+    </div>
+    <div class="cart-summary-row total-row">
+      <span>Grand Total</span>
+      <span>${formatPrice(calcs.grandTotal)}</span>
+    </div>
+    <div class="cart-drawer-actions">
+      <a href="checkout.html" class="btn btn-primary btn-block">PROCEED TO CHECKOUT</a>
+      <a href="cart.html" class="btn btn-outline btn-block btn-sm" onclick="closeCartDrawer()">VIEW FULL BAG & OFFERS</a>
+    </div>
+  `;
+}
+
+// --- Universal Brutalist Streetwear Product Card Component ---
+function renderProductCard(product) {
+  const isWished = isInWishlist(product.id);
+  const heartClass = isWished ? 'active' : '';
+
+  return `
+    <article class="product-card" data-id="${product.id}" data-category="${product.category}">
+      <div class="product-card-media card-media">
+        <a href="product.html?id=${product.id}">
+          <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+        </a>
+        <div class="card-top-badges">
+          <span class="card-badge ${product.badgeType || 'badge-neon'}">${product.badge || 'COLLECTION'}</span>
+        </div>
+        <button class="card-wishlist-btn wishlist-btn ${heartClass}" onclick="handleWishlistClick(event, '${product.id}')" aria-label="Save to Wishlist" title="Save to Wishlist">
+          <svg viewBox="0 0 24 24" fill="${isWished ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+        <div class="card-quick-add">
+          ${product.sizes.map(sz => `
+            <button class="quick-size-btn" onclick="handleQuickAdd(event, '${product.id}', '${sz}')">${sz}</button>
+          `).join('')}
+        </div>
+      </div>
+      <div class="product-card-body card-details">
+        <div class="card-category-label">${product.categoryLabel || 'Oversized Tees'} &bull; ${product.color || 'Streetwear'}</div>
+        <h3 class="card-title">
+          <a href="product.html?id=${product.id}">${product.name}</a>
+        </h3>
+        <div class="card-price-row">
+          <span class="card-current-price price-current">${formatPrice(product.price)}</span>
+          <span class="card-mrp price-original">${formatPrice(product.mrp)}</span>
+          <span class="card-discount-badge price-discount">${product.discount || ''}</span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+// Quick Add Handler
+function handleQuickAdd(e, productId, size) {
+  e.preventDefault();
+  e.stopPropagation();
+  addToCart(productId, size, 1);
+}
+
+// Wishlist Click Handler
+function handleWishlistClick(e, productId) {
+  e.preventDefault();
+  e.stopPropagation();
+  toggleWishlist(productId);
+}
+
+function updateWishlistIcons(productId, isAdded) {
+  document.querySelectorAll(`.product-card[data-id="${productId}"] .wishlist-btn`).forEach(btn => {
+    if (isAdded) {
+      btn.classList.add('active');
+      btn.querySelector('svg').setAttribute('fill', 'currentColor');
+    } else {
+      btn.classList.remove('active');
+      btn.querySelector('svg').setAttribute('fill', 'none');
+    }
+  });
+}
+
+function initHeader() {
+  // Mobile drawer or extra navigation listeners can hook here
+}
+
+</script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       if (typeof loadLiveCatalogFromSupabase === 'function') {

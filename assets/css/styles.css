@@ -2219,3 +2219,234 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-accent);
 }
 
+
+
+/* ==========================================================================
+   ENHANCED MOBILE OPTIMIZATION & RESPONSIVENESS (iOS, Android, Small Screens)
+   ========================================================================== */
+
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 768px) {
+  /* Announcement ticker sizing */
+  .announcement-bar {
+    height: 32px;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    padding: 0 10px;
+  }
+  .announcement-bar .ticker-track {
+    gap: 20px;
+    animation-duration: 18s;
+  }
+
+  /* Header adjustments */
+  .main-header {
+    height: 58px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .brand-logo {
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+  }
+  .brand-logo .dot {
+    width: 6px;
+    height: 6px;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .header-action-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .header-action-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 16px 0 10px;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+    line-height: 1.0;
+    margin-bottom: 14px;
+  }
+  .hero-subtext {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-visual-card {
+    height: 280px;
+    border-radius: var(--radius-md);
+  }
+  .hero-visual-badge {
+    bottom: 12px;
+    left: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Streetwear Product Grid: 2-column mobile cards */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .product-card {
+    border-radius: var(--radius-sm);
+  }
+  .product-card-body {
+    padding: 10px;
+  }
+  .card-category-label {
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 0.82rem;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .card-price-row {
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .price-current, .card-current-price {
+    font-size: 0.92rem !important;
+  }
+  .price-original, .card-mrp {
+    font-size: 0.75rem !important;
+  }
+  .card-discount-badge {
+    font-size: 0.62rem !important;
+    padding: 2px 4px !important;
+  }
+  /* Mobile touch friendly quick-add */
+  .card-quick-add {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    padding: 6px !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%) !important;
+  }
+  .quick-size-btn {
+    font-size: 0.65rem !important;
+    padding: 4px 0 !important;
+  }
+  .card-wishlist-btn {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+  }
+  .card-wishlist-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Cart slideout on mobile full screen */
+  .cart-drawer {
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* Mobile Bottom Navigation Bar */
+  .mobile-bottom-nav {
+    display: flex !important;
+    height: 60px !important;
+    padding: 0 4px !important;
+    background: #0A0A0A !important;
+    border-top: 1px solid #27272A !important;
+  }
+  .mobile-nav-item {
+    color: #A1A1AA !important;
+    font-size: 0.62rem !important;
+    flex: 1;
+    text-align: center;
+  }
+  .mobile-nav-item.active {
+    color: var(--color-accent) !important;
+  }
+  .mobile-nav-item.active svg {
+    stroke: var(--color-accent) !important;
+  }
+  .mobile-nav-item svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* Footer on mobile */
+  .footer-top-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  .footer-bottom-bar {
+    padding-bottom: 20px;
+    font-size: 0.75rem;
+  }
+
+  /* Admin Dashboard Mobile Responsiveness */
+  .admin-dashboard {
+    padding: 16px 0 80px !important;
+  }
+  .admin-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .admin-header > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .admin-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .admin-tabs-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+  .admin-tab-btn {
+    font-size: 0.78rem !important;
+    padding: 8px 12px !important;
+  }
+  .admin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .admin-card {
+    padding: 16px !important;
+    border-radius: var(--radius-md) !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .modal-content {
+    padding: 18px !important;
+    max-height: 95vh !important;
+    width: 95vw !important;
+  }
+}
