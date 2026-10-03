@@ -308,12 +308,17 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`=======================================================`);
-  console.log(`⚡ TRIVASTRAM STREETWEAR OPS SERVER & QIKINK POD BRIDGE IS LIVE!`);
-  console.log(`🌐 Local URL:  http://localhost:${PORT}`);
-  console.log(`👑 Admin App:  http://localhost:${PORT}/admin.html`);
-  console.log(`🛍️ Shop:       http://localhost:${PORT}/shop.html`);
-  console.log(`🔌 Qikink API: CONNECTED (${QIKINK_CONFIG.ENV.toUpperCase()})`);
-  console.log(`=======================================================`);
-});
+if (require.main === module) {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`=======================================================`);
+    console.log(`⚡ TRIVASTRAM STREETWEAR OPS SERVER & QIKINK POD BRIDGE IS LIVE!`);
+    console.log(`🌐 Local URL:  http://localhost:${PORT}`);
+    console.log(`👑 Admin App:  http://localhost:${PORT}/admin.html`);
+    console.log(`🛍️ Shop:       http://localhost:${PORT}/shop.html`);
+    console.log(`🔌 Qikink API: CONNECTED (${QIKINK_CONFIG.ENV.toUpperCase()})`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = server;
+
