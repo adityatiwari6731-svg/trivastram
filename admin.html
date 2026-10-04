@@ -3002,8 +3002,8 @@ const KRAAL_SUPABASE_CONFIG = {
 
 const KRAAL_QIKINK_CONFIG = {
   CLIENT_ID: "945377554359654",
-  CLIENT_SECRET: "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8",
-  ENV: "sandbox"     // "sandbox" for testing, "live" for production
+  CLIENT_SECRET: "592e7a2fdcbe2e04b7f016710f732a5e6591ba246e3a6b0abbfdbcd04436f4de",
+  ENV: "live"     // "sandbox" for testing, "live" for production
 };
 
 let supabaseClient = null;
@@ -3727,7 +3727,11 @@ window.kraalSupabase = window.trivastramSupabase;
         }
       } catch (err) {
         console.error('Push error:', err);
-        alert('Push failed: ' + err.message);
+        let errorMsg = err.message || '';
+        if (errorMsg.includes('status 500') || errorMsg.includes('500')) {
+          errorMsg += '\n\n💡 Tip: Qikink live production requires active wallet balance before orders can be fulfilled. Ensure your Qikink wallet has sufficient prepaid credits, or configure Qikink sandbox mode for testing.';
+        }
+        alert('Push failed: ' + errorMsg);
       } finally {
         if (btnElement) {
           btnElement.disabled = false;

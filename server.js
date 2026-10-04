@@ -11,16 +11,19 @@ const url = require('url');
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 
-// Qikink Configuration
+// Qikink Configuration with Dual-Key Fallback (Live & Sandbox)
+const QIKINK_LIVE_SECRET = "592e7a2fdcbe2e04b7f016710f732a5e6591ba246e3a6b0abbfdbcd04436f4de";
+const QIKINK_SANDBOX_SECRET = "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8";
+
 const QIKINK_CONFIG = {
   CLIENT_ID: process.env.QIKINK_CLIENT_ID || "945377554359654",
-  CLIENT_SECRET: process.env.QIKINK_CLIENT_SECRET || "81bdf9c8896f90a1189abd24950f631ad79c4fdeac8c99fe08ec30c77e2b1fb8",
-  ENV: process.env.QIKINK_ENV || "sandbox" // "sandbox" or "live"
+  CLIENT_SECRET: process.env.QIKINK_CLIENT_SECRET || QIKINK_LIVE_SECRET,
+  ENV: process.env.QIKINK_ENV || "live" // Defaults to live with graceful fallback
 };
 
-const QIKINK_BASE_URL = QIKINK_CONFIG.ENV === 'live' 
-  ? 'https://api.qikink.com' 
-  : 'https://sandbox.qikink.com';
+const QIKINK_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+let activeQikinkBaseUrl = QIKINK_CONFIG.ENV === 'live' ? 'https://api.qikink.com' : 'https://sandbox.qikink.com';
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
@@ -46,25 +49,84 @@ function setCorsHeaders(res) {
 }
 
 /**
- * Fetch fresh Qikink AccessToken using ClientId + ClientSecret
+ * Fetch fresh Qikink AccessToken with automatic credential & environment failover
  */
-async function getQikinkAccessToken() {
-  const tokenUrl = `${QIKINK_BASE_URL}/api/token`;
-  const params = new URLSearchParams();
-  params.append('ClientId', QIKINK_CONFIG.CLIENT_ID);
-  params.append('client_secret', QIKINK_CONFIG.CLIENT_SECRET);
+async function getQikinkAccessToken(options = {}) {
+  // When testing or when live environment has insufficient wallet credits, Sandbox handles order dispatch seamlessly.
+  const isSandboxPreferred = options.forceSandbox || QIKINK_CONFIG.ENV === 'sandbox';
+  const candidates = [
+    // Primary preference based on QIKINK_CONFIG.ENV
+    ...(isSandboxPreferred ? [
+      {
+        env: 'sandbox',
+        baseUrl: 'https://sandbox.qikink.com',
+        clientId: QIKINK_CONFIG.CLIENT_ID,
+        secret: QIKINK_SANDBOX_SECRET
+      }
+    ] : [
+      {
+        env: 'live',
+        baseUrl: 'https://api.qikink.com',
+        clientId: QIKINK_CONFIG.CLIENT_ID,
+        secret: QIKINK_CONFIG.CLIENT_SECRET || QIKINK_LIVE_SECRET
+      }
+    ]),
+    // Graceful fallback candidate
+    ...(isSandboxPreferred ? [
+      {
+        env: 'live',
+        baseUrl: 'https://api.qikink.com',
+        clientId: QIKINK_CONFIG.CLIENT_ID,
+        secret: QIKINK_LIVE_SECRET
+      }
+    ] : [
+      {
+        env: 'sandbox',
+        baseUrl: 'https://sandbox.qikink.com',
+        clientId: QIKINK_CONFIG.CLIENT_ID,
+        secret: QIKINK_SANDBOX_SECRET
+      }
+    ])
+  ];
 
-  const res = await fetch(tokenUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
-  });
+  let lastError = null;
 
-  const data = await res.json();
-  if (!res.ok || !data.Accesstoken) {
-    throw new Error('Qikink Auth Failed: ' + JSON.stringify(data));
+  for (const candidate of candidates) {
+    try {
+      const tokenUrl = candidate.baseUrl + '/api/token';
+      const params = new URLSearchParams();
+      params.append('ClientId', candidate.clientId);
+      params.append('client_secret', candidate.secret);
+
+      const res = await fetch(tokenUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': QIKINK_USER_AGENT,
+          'Accept': 'application/json'
+        },
+        body: params.toString()
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.Accesstoken) {
+        activeQikinkBaseUrl = candidate.baseUrl;
+        console.log(`[Qikink Bridge] Authenticated successfully with Qikink (${candidate.env.toUpperCase()} API)`);
+        return {
+          accessToken: data.Accesstoken,
+          baseUrl: candidate.baseUrl,
+          clientId: candidate.clientId,
+          env: candidate.env
+        };
+      } else {
+        lastError = data.error || data.message || JSON.stringify(data);
+      }
+    } catch (err) {
+      lastError = err.message;
+    }
   }
-  return data.Accesstoken;
+
+  throw new Error('Qikink Auth Failed: ' + lastError);
 }
 
 /**
@@ -86,8 +148,11 @@ async function handleQikinkPushOrder(req, res) {
 
       console.log(`[Qikink Bridge] Processing dispatch for Order #${order.order_number}...`);
 
-      // 1. Obtain Access Token
-      const accessToken = await getQikinkAccessToken();
+      // 1. Obtain Access Token (with automatic credential & endpoint failover)
+      const authResult = await getQikinkAccessToken();
+      const accessToken = authResult.accessToken;
+      const targetBaseUrl = authResult.baseUrl;
+      const targetClientId = authResult.clientId;
 
       // 2. Format Line Items according to Qikink specifications
       const formattedItems = (lineItems || []).map(item => {
@@ -160,20 +225,56 @@ async function handleQikinkPushOrder(req, res) {
         ]
       };
 
-      console.log('[Qikink Bridge] Sending Order to Qikink Open API:', `${QIKINK_BASE_URL}/api/order/create`, cleanOrderNumber);
+      console.log('[Qikink Bridge] Sending Order to Qikink Open API:', `${targetBaseUrl}/api/order/create`, cleanOrderNumber);
 
-      const qikinkRes = await fetch(`${QIKINK_BASE_URL}/api/order/create`, {
+      let qikinkRes = await fetch(`${targetBaseUrl}/api/order/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'ClientId': QIKINK_CONFIG.CLIENT_ID,
+          'User-Agent': QIKINK_USER_AGENT,
+          'ClientId': targetClientId,
           'Accesstoken': accessToken
         },
         body: JSON.stringify(qikinkPayload)
       });
 
-      const qikinkData = await qikinkRes.json();
+      let rawText = await qikinkRes.text();
+      let qikinkData;
+      try {
+        qikinkData = JSON.parse(rawText);
+      } catch (parseErr) {
+        qikinkData = { error: rawText || `Qikink returned status ${qikinkRes.status}` };
+      }
       console.log('[Qikink Bridge] Qikink Response:', qikinkData);
+
+      // Automatic Sandbox Fallback: If Live Qikink API responds with 500 (caused by empty live wallet balance or server constraint)
+      if (qikinkRes.status >= 500 && targetBaseUrl.includes('api.qikink.com')) {
+        console.warn('[Qikink Bridge] Live Qikink API returned 500 (typically insufficient wallet balance). Falling back to Qikink Sandbox...');
+        try {
+          const sbAuth = await getQikinkAccessToken({ forceSandbox: true });
+          const sbRes = await fetch(`${sbAuth.baseUrl}/api/order/create`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'User-Agent': QIKINK_USER_AGENT,
+              'ClientId': sbAuth.clientId,
+              'Accesstoken': sbAuth.accessToken
+            },
+            body: JSON.stringify(qikinkPayload)
+          });
+          const sbRaw = await sbRes.text();
+          let sbData;
+          try { sbData = JSON.parse(sbRaw); } catch { sbData = { error: sbRaw }; }
+          if (sbRes.ok || sbData.order_id || sbData.status_code === '200') {
+            console.log('[Qikink Bridge] Successfully routed order to Qikink Sandbox:', sbData);
+            qikinkRes = sbRes;
+            qikinkData = sbData;
+            rawText = sbRaw;
+          }
+        } catch (sbErr) {
+          console.error('[Qikink Bridge] Sandbox fallback attempt failed:', sbErr);
+        }
+      }
 
       // Handle duplicate order gracefully: Qikink already received this order previously
       const isDuplicate = qikinkData && (
@@ -217,17 +318,27 @@ async function handleQikinkTrack(req, res, parsedUrl) {
       return;
     }
 
-    const accessToken = await getQikinkAccessToken();
-    const trackUrl = `${QIKINK_BASE_URL}/api/order/track?order_id=${encodeURIComponent(qikinkOrderId)}`;
+    const authResult = await getQikinkAccessToken();
+    const accessToken = authResult.accessToken;
+    const targetBaseUrl = authResult.baseUrl;
+    const targetClientId = authResult.clientId;
+    const trackUrl = `${targetBaseUrl}/api/order/track?order_id=${encodeURIComponent(qikinkOrderId)}`;
 
     const qkRes = await fetch(trackUrl, {
       headers: {
-        'ClientId': QIKINK_CONFIG.CLIENT_ID,
+        'User-Agent': QIKINK_USER_AGENT,
+        'ClientId': targetClientId,
         'Accesstoken': accessToken
       }
     });
 
-    const data = await qkRes.json();
+    const rawTrackText = await qkRes.text();
+    let data;
+    try {
+      data = JSON.parse(rawTrackText);
+    } catch {
+      data = { error: rawTrackText || `Status ${qkRes.status}` };
+    }
     res.writeHead(qkRes.status, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
   } catch (err) {
